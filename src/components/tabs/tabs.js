@@ -49,7 +49,6 @@ export const Tabs = ({
 };
 
 export const Tab = ({ children, eventKey, activeKey }) => {
-  console.log(activeKey);
   if (activeKey !== eventKey) {
     return null;
   }

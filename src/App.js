@@ -6,6 +6,7 @@ import ProtectedRoutes from "src/components/ProtectedRoutes";
 import Pivots from "src/modules/pivots";
 import Dashboard from "src/modules/dashboard";
 import CashReports from "src/modules/cashReports";
+import FoReports from "src/modules/foReports";
 import "./App.scss";
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
               element={<CashReports.GainersLoosers />}
             />
             <Route path="graph" element={<CashReports.Graph />} />
+          </Route>
+
+          <Route path="/fo-reports">
+            <Route path="bhavcopy" element={<FoReports.Bhavcopy />} />
           </Route>
 
           <Route path="/pivots">
