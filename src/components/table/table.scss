@@ -1,0 +1,22 @@
+.table {
+  border: 0;
+
+  .thead,
+  .trow {
+    display: flex;
+  }
+
+  .thead {
+    border-bottom: 1px solid lightcoral;
+  }
+
+  .th,
+  .td {
+    padding: 10px;
+    flex: 1;
+  }
+
+  .trow:nth-child(2n + 1) {
+    background-color: var(--background-color-table-row);
+  }
+}

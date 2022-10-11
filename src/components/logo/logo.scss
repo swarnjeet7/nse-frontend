@@ -1,0 +1,24 @@
+.logo {
+  line-height: 1;
+
+  &__block {
+    display: block;
+    text-decoration: none;
+    color: var(--white-raw);
+    padding: var(--padding-tiny) 0 var(--padding-small);
+  }
+
+  &__title {
+    font-size: 48px;
+    font-family: var(--font-family-secondary);
+    margin-top: 6px;
+  }
+
+  &__subtitle {
+    font-size: 22px;
+  }
+
+  &__text {
+    padding-left: var(--padding-small);
+  }
+}
