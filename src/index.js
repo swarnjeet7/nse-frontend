@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
 // https://nse-stock-exchange.herokuapp.com || http://localhost:8080
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://nse-stock-exchange.herokuapp.com";
 axios.defaults.headers.common["Authorization"] =
   window.sessionStorage.getItem("auth");
 // axios.defaults.headers.post["Origin"] = "https://nse.itechmantra.com";
