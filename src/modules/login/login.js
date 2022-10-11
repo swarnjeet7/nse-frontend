@@ -80,24 +80,24 @@ function Login() {
           <h2 className="page-title">Login</h2>
 
           <Form onSubmit={handleFormSubmit} isLoginForm>
-            <Form.FormBody>
-              <Form.FormInput
+            <Form.Body>
+              <Form.Input
                 id="UserName"
                 value={form.UserName}
                 label="Username"
                 onChange={handleInputChange}
               />
-              <Form.FormInput
+              <Form.Input
                 id="Password"
                 value={form.Password}
                 label="Password"
                 type="password"
                 onChange={handleInputChange}
               />
-            </Form.FormBody>
-            <Form.FormActions>
+            </Form.Body>
+            <Form.Actions>
               <Button>Login</Button>
-            </Form.FormActions>
+            </Form.Actions>
           </Form>
         </div>
       </div>

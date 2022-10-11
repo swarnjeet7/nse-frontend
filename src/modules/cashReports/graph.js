@@ -60,8 +60,8 @@ function Graph(props) {
     <div>
       <WhiteBoard>
         <Form onSubmit={handleSubmit}>
-          <Form.FormBody>
-            <Form.FormSelect
+          <Form.Body>
+            <Form.Select
               id="Symbol"
               isRequired
               value={form.Symbol}
@@ -73,7 +73,7 @@ function Graph(props) {
                   {symbol.name}
                 </option>
               ))}
-            </Form.FormSelect>
+            </Form.Select>
 
             <DatePicker
               selected={form.from}
@@ -94,10 +94,10 @@ function Graph(props) {
               label="Select Date Range"
               onChange={handleDateChange}
             /> */}
-          </Form.FormBody>
-          <Form.FormActions>
+          </Form.Body>
+          <Form.Actions>
             <Button>Submit</Button>
-          </Form.FormActions>
+          </Form.Actions>
         </Form>
       </WhiteBoard>
     </div>

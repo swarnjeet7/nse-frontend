@@ -1,6 +1,7 @@
 import classnames from "classnames";
-import FormInput from "src/components/formInput";
-import FormSelect from "src/components/formSelect";
+import Input from "src/components/formInput";
+import FileInput from "src/components/fileInput";
+import Select from "src/components/formSelect";
 import "./form.scss";
 
 function Form(props) {
@@ -21,21 +22,22 @@ function Form(props) {
   );
 }
 
-export const FormBody = (props) => {
+export const Body = (props) => {
   const { children } = props;
 
   return <div className="form__body">{children}</div>;
 };
 
-export const FormActions = (props) => {
+export const Actions = (props) => {
   const { children } = props;
 
   return <div className="form__actions">{children}</div>;
 };
 
 export default Object.assign(Form, {
-  FormInput,
-  FormBody,
-  FormActions,
-  FormSelect,
+  Input,
+  Body,
+  Actions,
+  Select,
+  FileInput,
 });

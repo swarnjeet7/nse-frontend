@@ -41,8 +41,8 @@ function ShowPivots() {
     <div>
       <WhiteBoard>
         <Form onSubmit={handleFormSubmit}>
-          <Form.FormBody>
-            <Form.FormInput
+          <Form.Body>
+            <Form.Input
               id="from"
               isRequired
               isDatePicker
@@ -50,16 +50,16 @@ function ShowPivots() {
               label="Select Date"
               onChange={handleInputChange}
             />
-            <Form.FormInput
+            <Form.Input
               id="Portfolio"
               value={form.Portfolio}
               label="Select Portfolio"
               onChange={handleInputChange}
             />
-          </Form.FormBody>
-          <Form.FormActions>
+          </Form.Body>
+          <Form.Actions>
             <Button>Submit</Button>
-          </Form.FormActions>
+          </Form.Actions>
         </Form>
       </WhiteBoard>
 

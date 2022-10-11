@@ -43,8 +43,8 @@ function GainersLoosers() {
     <div>
       <WhiteBoard>
         <Form onSubmit={handleFormSubmit}>
-          <Form.FormBody>
-            <Form.FormInput
+          <Form.Body>
+            <Form.Input
               id="date"
               isRequired
               isDatePicker
@@ -52,7 +52,7 @@ function GainersLoosers() {
               label="Select Date"
               onChange={handleChange}
             />
-            <Form.FormSelect
+            <Form.Select
               id="type"
               isRequired
               value={form.type}
@@ -61,19 +61,19 @@ function GainersLoosers() {
             >
               <option value="gainers">Gainers</option>
               <option value="loosers">Loosers</option>
-            </Form.FormSelect>
+            </Form.Select>
 
-            <Form.FormInput
+            <Form.Input
               id="count"
               isRequired
               value={form.count}
               label="Enter Count"
               onChange={handleChange}
             />
-          </Form.FormBody>
-          <Form.FormActions>
+          </Form.Body>
+          <Form.Actions>
             <Button>Submit</Button>
-          </Form.FormActions>
+          </Form.Actions>
         </Form>
       </WhiteBoard>
 

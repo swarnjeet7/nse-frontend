@@ -3,7 +3,6 @@ import classnames from "classnames";
 import Input from "src/atoms/input/input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./formInput.scss";
 
 function FormInput(props) {
   const {

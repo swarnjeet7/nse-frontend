@@ -42,7 +42,7 @@ function Bhavcopy() {
   function handleInputChange(val, id) {
     let value = val;
     if (typeof value === "object") {
-      value = moment(val).format("MM/DD/YYYY");
+      value = moment(val).at("MM/DD/YYYY");
     }
     setForm((prevForm) => ({ ...prevForm, [id]: value }));
   }
@@ -60,8 +60,8 @@ function Bhavcopy() {
         >
           <Tab eventKey="form1" title="Specific Date" activeKey={key}>
             <Form onSubmit={handleFormSubmit}>
-              <Form.FormBody>
-                <Form.FormInput
+              <Form.Body>
+                <Form.Input
                   id="from"
                   isRequired
                   isDatePicker
@@ -69,22 +69,22 @@ function Bhavcopy() {
                   label="Select Date"
                   onChange={handleInputChange}
                 />
-                <Form.FormInput
+                <Form.Input
                   id="Portfolio"
                   value={form.Portfolio}
                   label="Select Portfolio"
                   onChange={handleInputChange}
                 />
-              </Form.FormBody>
-              <Form.FormActions>
+              </Form.Body>
+              <Form.Actions>
                 <Button>Submit</Button>
-              </Form.FormActions>
+              </Form.Actions>
             </Form>
           </Tab>
           <Tab eventKey="form2" title="Date Range" activeKey={key}>
             <Form onSubmit={handleFormSubmit}>
-              <Form.FormBody>
-                <Form.FormInput
+              <Form.Body>
+                <Form.Input
                   id="from"
                   isRequired
                   isDatePicker
@@ -92,7 +92,7 @@ function Bhavcopy() {
                   label="Select Date from"
                   onChange={handleInputChange}
                 />
-                <Form.FormInput
+                <Form.Input
                   id="to"
                   isRequired
                   isDatePicker
@@ -100,16 +100,16 @@ function Bhavcopy() {
                   label="Select Date to"
                   onChange={handleInputChange}
                 />
-                <Form.FormInput
+                <Form.Input
                   id="Symbol"
                   value={form.Symbol}
                   label="Select Symbol"
                   onChange={handleInputChange}
                 />
-              </Form.FormBody>
-              <Form.FormActions>
+              </Form.Body>
+              <Form.Actions>
                 <Button>Submit</Button>
-              </Form.FormActions>
+              </Form.Actions>
             </Form>
           </Tab>
         </Tabs>
@@ -163,7 +163,7 @@ function Bhavcopy() {
                   <div>{PrevClose}</div>
                   <div>{TotalTradeQuantity}</div>
                   <div>{TotalTradeValue}</div>
-                  <div>{moment(Timestamp).format("MM/DD/YYYY")}</div>
+                  <div>{moment(Timestamp).at("MM/DD/YYYY")}</div>
                   <div>{TotalTrades}</div>
                   <div>{ISIN}</div>
                   <div>{Number(Profit).toFixed(2) + "%"}</div>

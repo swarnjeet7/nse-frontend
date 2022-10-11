@@ -7,6 +7,7 @@ import Pivots from "src/modules/pivots";
 import Dashboard from "src/modules/dashboard";
 import CashReports from "src/modules/cashReports";
 import FoReports from "src/modules/foReports";
+import Import from "src/modules/import";
 import "./App.scss";
 
 function App() {
@@ -17,7 +18,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+
+          <Route path="import">
+            <Route path="cash-bhavcopy" element={<Import.CashFile />} />
+            <Route path="fo-bhavcopy" element={<Import.FoFile />} />
+          </Route>
 
           <Route path="/cash-reports">
             <Route path="bhavcopy" element={<CashReports.Bhavcopy />} />

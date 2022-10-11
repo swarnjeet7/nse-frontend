@@ -47,8 +47,8 @@ function Bhavcopy() {
     <div>
       <WhiteBoard>
         <Form onSubmit={handleFormSubmit}>
-          <Form.FormBody>
-            <Form.FormInput
+          <Form.Body>
+            <Form.Input
               id="from"
               isRequired
               isDatePicker
@@ -57,7 +57,7 @@ function Bhavcopy() {
               onChange={handleInputChange}
             />
 
-            <Form.FormInput
+            <Form.Input
               id="ExpireDate"
               isRequired
               isDatePicker
@@ -65,10 +65,10 @@ function Bhavcopy() {
               label="Select Expire Date"
               onChange={handleInputChange}
             />
-          </Form.FormBody>
-          <Form.FormActions>
+          </Form.Body>
+          <Form.Actions>
             <Button>Submit</Button>
-          </Form.FormActions>
+          </Form.Actions>
         </Form>
       </WhiteBoard>
 

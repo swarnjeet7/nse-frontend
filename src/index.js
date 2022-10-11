@@ -8,7 +8,7 @@ import axios from "axios";
 
 const API_BASE_URL_DEV = "http://localhost:8080";
 const API_BASE_URL_PROD = "https://nse-stock-exchange.herokuapp.com";
-axios.defaults.baseURL = API_BASE_URL_PROD;
+axios.defaults.baseURL = API_BASE_URL_DEV;
 axios.defaults.headers.common["Authorization"] =
   window.sessionStorage.getItem("auth");
 // axios.defaults.headers.post["Origin"] = "https://nse.itechmantra.com";
