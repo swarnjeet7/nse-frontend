@@ -8,12 +8,24 @@ import { Container } from "src/atoms/grid";
 function MainLayout(props) {
   const pathname = window.location.pathname;
   const [urlParams, setUrlParams] = useState(
-    _.remove(pathname.split("/"), _.identity)
+    _.remove(pathname.split("/"), function (param) {
+      return (
+        param !== "" && param !== "nse-front-end" && param !== "nse-frontend"
+      );
+    })
   );
 
   useEffect(() => {
     if (pathname !== window.location.pathname) {
-      setUrlParams(_.remove(window.location.pathname.split("/"), _.identity));
+      setUrlParams(
+        _.remove(window.location.pathname.split("/"), function (param) {
+          return (
+            param !== "" &&
+            param !== "nse-front-end" &&
+            param !== "nse-frontend"
+          );
+        })
+      );
     }
   }, [pathname]);
 
