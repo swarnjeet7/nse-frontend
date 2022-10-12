@@ -48,7 +48,7 @@ function CashFile() {
           <Form.FileInput
             id="file"
             isRequired
-            label="Select Expire Date"
+            label="Select Cash File"
             onChange={handleFileChange}
           />
         </Form.Body>

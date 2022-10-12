@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import _ from "lodash";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import WhiteBoard from "src/components/whiteBoard";
@@ -48,7 +47,7 @@ function FoFile() {
           <Form.FileInput
             id="file"
             isRequired
-            label="Select Expire Date"
+            label="Select FO File"
             onChange={handleFileChange}
           />
         </Form.Body>

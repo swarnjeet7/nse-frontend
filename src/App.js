@@ -20,7 +20,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="dashboard" element={<Dashboard />} />
 
-          <Route path="import">
+          <Route path="/import">
             <Route path="cash-bhavcopy" element={<Import.CashFile />} />
             <Route path="fo-bhavcopy" element={<Import.FoFile />} />
           </Route>

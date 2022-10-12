@@ -2,7 +2,7 @@ import classnames from "classnames";
 import _ from "lodash";
 
 function FormSelect(props) {
-  const { value, label, onSelect, isRequired, className, children, id } = props;
+  const { value, label, onChange, isRequired, className, children, id } = props;
   const labelKebabCase = _.kebabCase(label);
 
   const classes = classnames("form-input", className, {
@@ -13,7 +13,7 @@ function FormSelect(props) {
   const selectDataTestId = `${labelKebabCase}-input`;
 
   function handleSelect(event) {
-    onSelect(event.target.value, id);
+    onChange(event.target.value, id);
   }
 
   return (

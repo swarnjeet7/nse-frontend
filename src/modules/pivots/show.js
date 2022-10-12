@@ -1,6 +1,7 @@
 import moment from "moment";
 import { useState } from "react";
 import Form from "src/components/form/form";
+import PortfolioDropdown from "src/components/portfolioDropdown";
 import Button from "src/components/button/button";
 import WhiteBoard from "src/components/whiteBoard";
 import Table from "src/components/table";
@@ -50,10 +51,9 @@ function ShowPivots() {
               label="Select Date"
               onChange={handleInputChange}
             />
-            <Form.Input
+            <PortfolioDropdown
               id="Portfolio"
-              value={form.Portfolio}
-              label="Select Portfolio"
+              selected={form.Portfolio}
               onChange={handleInputChange}
             />
           </Form.Body>

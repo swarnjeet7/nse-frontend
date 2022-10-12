@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import WhiteBoard from "src/components/whiteBoard";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Table from "src/components/table";
+import DateRangePicker from "src/components/dateRangePicker";
 import axios from "axios";
 
 function Graph(props) {
@@ -44,15 +43,13 @@ function Graph(props) {
     setForm((prevForm) => ({ ...prevForm, [id]: val }));
   }
 
-  function handleDateChange(dates) {
-    const [from, to] = dates;
-    if (to === null) {
-      return;
-    }
+  function handleDateChange(date, id) {
+    // console.log(date, id);
+    // const [from, to] = dates;
+
     setForm((prevForm) => ({
       ...prevForm,
-      from,
-      to,
+      [id]: moment(date).format("MM/DD/YYYY"),
     }));
   }
 
@@ -75,25 +72,12 @@ function Graph(props) {
               ))}
             </Form.Select>
 
-            <DatePicker
-              selected={form.from}
+            <DateRangePicker
               onChange={handleDateChange}
               startDate={form.from}
               endDate={form.to}
-              selectsRange
-              inline
-            />
-
-            {/* <Form.FormInput
-              id="from"
               isRequired
-              isDatePicker
-              value={form.from}
-              startDate={form.from}
-              endDate={form.to}
-              label="Select Date Range"
-              onChange={handleDateChange}
-            /> */}
+            />
           </Form.Body>
           <Form.Actions>
             <Button>Submit</Button>

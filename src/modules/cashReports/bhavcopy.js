@@ -5,6 +5,9 @@ import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import WhiteBoard from "src/components/whiteBoard";
 import Table from "src/components/table";
+import PortfolioDropdown from "src/components/portfolioDropdown";
+import DateRangePicker from "src/components/dateRangePicker";
+import SymbolDropdown from "src/components/symbolDropdown";
 import { Tabs, Tab } from "src/components/tabs";
 import axios from "axios";
 
@@ -69,10 +72,9 @@ function Bhavcopy() {
                   label="Select Date"
                   onChange={handleInputChange}
                 />
-                <Form.Input
+                <PortfolioDropdown
                   id="Portfolio"
-                  value={form.Portfolio}
-                  label="Select Portfolio"
+                  selected={form.Portfolio}
                   onChange={handleInputChange}
                 />
               </Form.Body>
@@ -84,26 +86,15 @@ function Bhavcopy() {
           <Tab eventKey="form2" title="Date Range" activeKey={key}>
             <Form onSubmit={handleFormSubmit}>
               <Form.Body>
-                <Form.Input
-                  id="from"
-                  isRequired
-                  isDatePicker
-                  value={form.from}
-                  label="Select Date from"
+                <DateRangePicker
                   onChange={handleInputChange}
-                />
-                <Form.Input
-                  id="to"
+                  startDate={form.from}
+                  endDate={form.to}
                   isRequired
-                  isDatePicker
-                  value={form.to}
-                  label="Select Date to"
-                  onChange={handleInputChange}
                 />
-                <Form.Input
+                <SymbolDropdown
                   id="Symbol"
-                  value={form.Symbol}
-                  label="Select Symbol"
+                  selected={form.Symbol}
                   onChange={handleInputChange}
                 />
               </Form.Body>
@@ -163,7 +154,7 @@ function Bhavcopy() {
                   <div>{PrevClose}</div>
                   <div>{TotalTradeQuantity}</div>
                   <div>{TotalTradeValue}</div>
-                  <div>{moment(Timestamp).at("MM/DD/YYYY")}</div>
+                  <div>{Timestamp}</div>
                   <div>{TotalTrades}</div>
                   <div>{ISIN}</div>
                   <div>{Number(Profit).toFixed(2) + "%"}</div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
+import PortfolioDropdown from "src/components/portfolioDropdown";
 import WhiteBoard from "src/components/whiteBoard";
 import axios from "axios";
 
@@ -41,10 +42,9 @@ function CreatePivots(props) {
               label="Select Date"
               onChange={handleInputChange}
             />
-            <Form.Input
+            <PortfolioDropdown
               id="Portfolio"
-              value={form.Portfolio}
-              label="Select Portfolio"
+              selected={form.Portfolio}
               onChange={handleInputChange}
             />
           </Form.Body>
