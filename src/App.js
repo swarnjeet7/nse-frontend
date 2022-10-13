@@ -16,17 +16,17 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/nse-front-end/login" element={<Login />} />
-        <Route path="/nse-front-end/logout" element={<Logout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="dashboard" element={<Dashboard />} />
 
-          <Route path="/nse-front-end/import">
+          <Route path="/import">
             <Route path="cash-bhavcopy" element={<Import.CashFile />} />
             <Route path="fo-bhavcopy" element={<Import.FoFile />} />
           </Route>
 
-          <Route path="/nse-front-end/cash-reports">
+          <Route path="/cash-reports">
             <Route path="bhavcopy" element={<CashReports.Bhavcopy />} />
             <Route
               path="gainers-loosers"
@@ -35,16 +35,16 @@ function App() {
             <Route path="graph" element={<CashReports.Graph />} />
           </Route>
 
-          <Route path="/nse-front-end/fo-reports">
+          <Route path="/fo-reports">
             <Route path="bhavcopy" element={<FoReports.Bhavcopy />} />
           </Route>
 
-          <Route path="/nse-front-end/pivots">
+          <Route path="/pivots">
             <Route path="create" element={<Pivots.Create />} />
             <Route path="show" element={<Pivots.Show />} />
           </Route>
 
-          <Route path="/nse-front-end/portfolio">
+          <Route path="/portfolio">
             <Route path="create" element={<Portfolio.Create />} />
             <Route path="manage" element={<Portfolio.Manage />} />
           </Route>

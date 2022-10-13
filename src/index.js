@@ -39,7 +39,7 @@ axios.interceptors.response.use(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/nse-front-end">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
