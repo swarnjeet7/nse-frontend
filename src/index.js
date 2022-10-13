@@ -6,9 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-let API_BASE_URL = "http://localhost:8080";
-if (process.env.NODE_ENV === "production") {
-  API_BASE_URL = "https://nse-stock-exchange.herokuapp.com";
+let API_BASE_URL = "https://nse-stock-exchange.herokuapp.com";
+if (process.env.NODE_ENV === "development") {
+  API_BASE_URL = "http://localhost:8080";
 }
 axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.headers.common["Authorization"] =
