@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
 let API_BASE_URL = "https://nse-stock-exchange.herokuapp.com";
-if (process.env.NODE_ENV === "development") {
+if (process?.env?.NODE_ENV === "development") {
   API_BASE_URL = "http://localhost:8080";
 }
 axios.defaults.baseURL = API_BASE_URL;
