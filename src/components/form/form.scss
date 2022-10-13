@@ -112,4 +112,40 @@
     overflow: hidden;
     cursor: pointer;
   }
+
+  &-checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .checkbox {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--border-color-primary);
+      border-radius: var(--border-radius-tiny);
+      box-shadow: 0 0 5px 10px #fef0bf;
+      margin-right: 15px;
+
+      svg {
+        display: none;
+      }
+    }
+
+    &--checked {
+      .checkbox {
+        svg {
+          display: block;
+        }
+      }
+    }
+  }
 }

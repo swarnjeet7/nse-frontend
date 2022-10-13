@@ -15,11 +15,16 @@ function Create() {
     Address: "",
   };
   const [createForm, setCreateForm] = useState(DEFAULT_FORM);
+  const [isChecked, setIsChecked] = useState(false);
 
   function handleFormSubmit() {}
 
   function handleChange(value, id) {
     setCreateForm((prevForm) => ({ ...prevForm, [id]: value }));
+  }
+
+  function handleClick() {
+    setIsChecked((preState) => !preState);
   }
 
   return (
@@ -59,12 +64,23 @@ function Create() {
           </Form>
         </WhiteBoard>
       </GridCell>
+
       <GridCell>
         <WhiteBoard>
           <Title divider>Created Portfolio Map</Title>
           <Form onSubmit={handleFormSubmit} isVertical>
             <Form.Body>
-              <Form.Checkbox label="Swarnjeet" />
+              <Form.Checkbox
+                label="Swarnjeet"
+                onChange={handleClick}
+                isChecked={isChecked}
+              />
+
+              <Form.Checkbox
+                label="Manjeet"
+                onChange={handleClick}
+                isChecked={isChecked}
+              />
             </Form.Body>
             <Form.Actions>
               <Button isInline>Edit Portfolio</Button>
