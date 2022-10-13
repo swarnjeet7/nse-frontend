@@ -15,9 +15,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path={process.env.PUBLIC_URL + "/"} element={<Login />} />
+        <Route path={process.env.PUBLIC_URL + "/login"} element={<Login />} />
+        <Route path={process.env.PUBLIC_URL + "/logout"} element={<Logout />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="dashboard" element={<Dashboard />} />
 
