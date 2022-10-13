@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nse-front-end/static/css/main.5d1d7974.css",
-    "main.js": "/nse-front-end/static/js/main.12dcc81f.js",
+    "main.js": "/nse-front-end/static/js/main.053f3299.js",
     "static/js/787.0a6b2347.chunk.js": "/nse-front-end/static/js/787.0a6b2347.chunk.js",
     "static/media/TrebuchetMS.ttf": "/nse-front-end/static/media/TrebuchetMS.8dc5d2dd53924baa495c.ttf",
     "static/media/Impact.ttf": "/nse-front-end/static/media/Impact.0294f8285a2493417c09.ttf",
@@ -10,11 +10,11 @@
     "static/media/logo-sm.png": "/nse-front-end/static/media/logo-sm.7cb88f8d7a7f2b406b28.png",
     "index.html": "/nse-front-end/index.html",
     "main.5d1d7974.css.map": "/nse-front-end/static/css/main.5d1d7974.css.map",
-    "main.12dcc81f.js.map": "/nse-front-end/static/js/main.12dcc81f.js.map",
+    "main.053f3299.js.map": "/nse-front-end/static/js/main.053f3299.js.map",
     "787.0a6b2347.chunk.js.map": "/nse-front-end/static/js/787.0a6b2347.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5d1d7974.css",
-    "static/js/main.12dcc81f.js"
+    "static/js/main.053f3299.js"
   ]
 }
