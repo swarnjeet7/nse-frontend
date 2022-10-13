@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/nse-front-end/" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/nse-front-end/login" element={<Login />} />
         <Route path="/nse-front-end/logout" element={<Logout />} />
         <Route element={<ProtectedRoutes />}>
