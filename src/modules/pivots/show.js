@@ -7,7 +7,7 @@ import WhiteBoard from "src/components/whiteBoard";
 import Table from "src/components/table";
 import axios from "axios";
 
-function ShowPivots() {
+function Show() {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({
     from: "05/23/2022",
@@ -100,4 +100,4 @@ function ShowPivots() {
   );
 }
 
-export default ShowPivots;
+export default Show;

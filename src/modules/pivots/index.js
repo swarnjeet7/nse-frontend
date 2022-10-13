@@ -1,9 +1,9 @@
-import ShowPivots from "./show";
-import CreatePivots from "./create";
+import Show from "./show";
+import Create from "./create";
 
 const Pivots = {
-  ShowPivots,
-  CreatePivots,
+  Show,
+  Create,
 };
 
 export default Pivots;

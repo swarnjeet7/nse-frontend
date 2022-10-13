@@ -5,7 +5,7 @@ import PortfolioDropdown from "src/components/portfolioDropdown";
 import WhiteBoard from "src/components/whiteBoard";
 import axios from "axios";
 
-function CreatePivots(props) {
+function Create(props) {
   const [form, setForm] = useState({
     from: new Date(),
     Portfolio: "",
@@ -57,4 +57,4 @@ function CreatePivots(props) {
   );
 }
 
-export default CreatePivots;
+export default Create;

@@ -1,13 +1,16 @@
 import classnames from "classnames";
 import Input from "src/components/formInput";
+import Textarea from "src/components/formTextarea";
 import FileInput from "src/components/fileInput";
 import Select from "src/components/formSelect";
+import Checkbox from "src/components/formCheckbox";
 import "./form.scss";
 
 function Form(props) {
-  const { children, onSubmit, className, isLoginForm } = props;
+  const { children, onSubmit, className, isLoginForm, isVertical } = props;
   const classes = classnames("form", className, {
     "form--login": isLoginForm,
+    "form--vertical": isVertical,
   });
 
   function handleFormSubmit(event) {
@@ -23,9 +26,12 @@ function Form(props) {
 }
 
 export const Body = (props) => {
-  const { children } = props;
+  const { children, isVertical, className } = props;
+  const classes = classnames("form__body", className, {
+    "form__body--vertical": isVertical,
+  });
 
-  return <div className="form__body">{children}</div>;
+  return <div className={classes}>{children}</div>;
 };
 
 export const Actions = (props) => {
@@ -40,4 +46,6 @@ export default Object.assign(Form, {
   Actions,
   Select,
   FileInput,
+  Textarea,
+  Checkbox,
 });

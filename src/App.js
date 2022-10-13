@@ -7,6 +7,7 @@ import Pivots from "src/modules/pivots";
 import Dashboard from "src/modules/dashboard";
 import CashReports from "src/modules/cashReports";
 import FoReports from "src/modules/foReports";
+import Portfolio from "src/modules/portfolio";
 import Import from "src/modules/import";
 import "./App.scss";
 
@@ -39,8 +40,13 @@ function App() {
           </Route>
 
           <Route path="/pivots">
-            <Route path="create" element={<Pivots.CreatePivots />} />
-            <Route path="show" element={<Pivots.ShowPivots />} />
+            <Route path="create" element={<Pivots.Create />} />
+            <Route path="show" element={<Pivots.Show />} />
+          </Route>
+
+          <Route path="/portfolio">
+            <Route path="create" element={<Portfolio.Create />} />
+            <Route path="manage" element={<Portfolio.Manage />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />
