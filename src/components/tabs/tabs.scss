@@ -4,27 +4,30 @@
     flex-wrap: wrap;
     padding-left: 0;
     list-style: none;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border-color-primary);
+    margin: 0 0 20px;
   }
 
   &__btn {
     cursor: pointer;
+    font-weight: 700;
     margin-bottom: -1px;
     background: 0 0;
     border: 1px solid transparent;
-    border-top-left-radius: 0.25rem;
+    border-top-left-radius: var(--border-radius-medium);
     border-top-right-radius: 0.25rem;
     display: block;
-    padding: 0.5rem 1rem;
-    color: #0d6efd;
+    padding: var(--padding-large) var(--padding-large);
+    color: var(--text-color-primary);
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
       border-color 0.15s ease-in-out;
 
     &.active {
-      color: #495057;
-      background-color: #fff;
-      border-color: #dee2e6 #dee2e6 #fff;
+      color: var(--white-raw);
+      background-color: var(--border-color-primary);
+      border-color: var(--border-color-primary) var(--border-color-primary)
+        var(--border-color-primary);
     }
   }
 
