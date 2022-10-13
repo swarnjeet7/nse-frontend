@@ -39,13 +39,14 @@
   &__menu {
     position: absolute;
     left: 0;
-    top: 100%;
+    top: calc(100% + 10px);
     min-width: 120px;
-    background-color: var(--white-raw);
+    background-color: var(--background-color-primary);
     border-radius: var(--border-radius-medium);
     height: 0;
     overflow: hidden;
     transition: height 0.25s;
+    box-shadow: 0 5px 10px #c8ad6b;
   }
 
   &__item {
@@ -53,6 +54,10 @@
     padding: var(--padding-small) var(--padding-medium);
     display: block;
     white-space: nowrap;
-    color: var(--black-raw);
+    color: var(--text-color-brand);
+
+    &:hover {
+      background: #ead4a0;
+    }
   }
 }
