@@ -1,7 +1,7 @@
 {
   "name": "nse-frontend",
   "homepage": "https://swarnjeet7.github.io/nse-front-end",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
