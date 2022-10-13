@@ -6,13 +6,13 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-const API_BASE_URL_DEV = "http://localhost:8080";
-const API_BASE_URL_PROD = "https://nse-stock-exchange.herokuapp.com";
-axios.defaults.baseURL = API_BASE_URL_PROD;
+let API_BASE_URL = "http://localhost:8080";
+if (process.env.NODE_ENV === "production") {
+  API_BASE_URL = "https://nse-stock-exchange.herokuapp.com";
+}
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.headers.common["Authorization"] =
   window.sessionStorage.getItem("auth");
-// axios.defaults.headers.post["Origin"] = "https://nse.itechmantra.com";
-// axios.defaults.headers.post["Content-Type"] = "application/json";
 
 axios.interceptors.request.use(
   (request) => {
@@ -39,7 +39,7 @@ axios.interceptors.response.use(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
