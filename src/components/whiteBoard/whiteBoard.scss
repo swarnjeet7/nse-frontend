@@ -2,5 +2,12 @@
   padding: 25px;
   border-radius: var(--border-radius-medium);
   background-color: var(--white-raw);
-  margin-bottom: 30px;
+
+  & + .board {
+    margin-top: 30px;
+  }
+
+  &--full-height {
+    height: 100%;
+  }
 }

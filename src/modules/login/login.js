@@ -22,14 +22,6 @@ function Login() {
     }
   }, [navigate]);
 
-  // function handleUsernameChange(value) {
-  //   setForm((prevState) => ({ ...prevState, UserName: value }));
-  // }
-
-  // function handlePasswordChange(value) {
-  //   setForm((prevState) => ({ ...prevState, Password: value }));
-  // }
-
   function handleInputChange(value, id) {
     setForm((prevState) => ({ ...prevState, [id]: value }));
   }

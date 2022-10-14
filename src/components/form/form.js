@@ -1,3 +1,4 @@
+import _ from "lodash";
 import classnames from "classnames";
 import Input from "src/components/formInput";
 import Textarea from "src/components/formTextarea";
@@ -7,7 +8,13 @@ import Checkbox from "src/components/formCheckbox";
 import "./form.scss";
 
 function Form(props) {
-  const { children, onSubmit, className, isLoginForm, isVertical } = props;
+  const {
+    children,
+    onSubmit = _.noop,
+    className,
+    isLoginForm,
+    isVertical,
+  } = props;
   const classes = classnames("form", className, {
     "form--login": isLoginForm,
     "form--vertical": isVertical,

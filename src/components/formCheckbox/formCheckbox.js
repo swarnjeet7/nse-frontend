@@ -5,11 +5,15 @@ export default function FormCheckbox({
   className,
   isChecked,
   onChange,
+  item = null,
 }) {
   const classes = classNames("form-checkbox", className, {
     "form-checkbox--checked": isChecked,
   });
   function handleClick() {
+    if (item) {
+      return onChange(item);
+    }
     onChange(!isChecked);
   }
 

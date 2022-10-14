@@ -1,8 +1,12 @@
+import classNames from "classnames";
 import "./whiteBoard.scss";
 
-function WhiteBoard({ children, ...restProps }) {
+function WhiteBoard({ children, className, fullHeight, ...restProps }) {
+  const classes = classNames("board", className, {
+    "board--full-height": fullHeight,
+  });
   return (
-    <div className="board" {...restProps}>
+    <div className={classes} {...restProps}>
       {children}
     </div>
   );

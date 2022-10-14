@@ -13,7 +13,16 @@
   font-size: var(--font-size-small);
   cursor: pointer;
 
+  & + .btn {
+    margin-left: 16px;
+  }
+
   &--inline {
     width: auto;
+    display: inline-flex;
+  }
+
+  &--disable {
+    opacity: 0.7;
   }
 }
