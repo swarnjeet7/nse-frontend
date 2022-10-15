@@ -8,7 +8,7 @@ import EditDialog from "./editDialog";
 import DeleteDialog from "./deleteDialog";
 import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
-import { DEFAULT_FORM } from "./constant";
+import { DEFAULT_FORM } from "../constant";
 
 function Create() {
   const [selectedPortfolio, setSelectedPortfolio] = useState({});

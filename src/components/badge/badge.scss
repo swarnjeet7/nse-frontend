@@ -1,0 +1,28 @@
+.badge {
+  &-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &-item {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 35px 5px 10px;
+    border: 1px solid var(--border-color-primary);
+    border-radius: var(--border-radius-small);
+    background-color: #fee9e6;
+    position: relative;
+
+    & + .badge-item {
+      margin-left: 15px;
+    }
+
+    .close {
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+}
