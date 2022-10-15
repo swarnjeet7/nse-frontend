@@ -67,7 +67,7 @@ function Login() {
         </div>
         <div className="login-box__right">
           <div className="image-wrapper">
-            <img src={logo} alt="NSE Stock Analysis" width="320" />
+            <img src={logo} alt="NSE Stock Analysis" width="200" />
           </div>
           <h2 className="page-title">Login</h2>
 

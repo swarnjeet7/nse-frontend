@@ -67,26 +67,24 @@
 
     .form__body {
       flex-direction: column;
-      padding-bottom: 20px;
+      padding-bottom: 15px;
     }
 
     .form-input {
-      margin-bottom: 30px;
+      margin: 0 0 20px;
 
       &__label {
-        font-size: var(--font-size-large);
+        font-size: var(--font-size-medium);
       }
 
       &__input {
-        padding: var(--padding-medium);
-        font-size: var(--font-size-large);
+        font-size: var(--font-size-medium);
       }
     }
 
     .btn {
-      padding: 15px;
-      border-radius: var(--border-radius-medium);
-      font-size: 30px;
+      font-size: 20px;
+      padding: 11px var(--padding-huge);
     }
   }
 
