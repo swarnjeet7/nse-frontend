@@ -1,42 +1,57 @@
 import _ from "lodash";
 import moment from "moment";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import WhiteBoard from "src/components/whiteBoard";
-import Table from "src/components/table";
+import SymbolDropdown from "src/components/symbolDropdown";
 import DateRangePicker from "src/components/dateRangePicker";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import axios from "axios";
 
 function Graph(props) {
   const [form, setForm] = useState({
     Symbol: "",
-    from: new Date(),
-    to: null,
+    from: "05/23/2022",
+    to: "05/27/2022",
   });
   const [data, setData] = useState([]);
-  const [symbols, setSymbols] = useState([]);
 
-  useEffect(() => {
+  const handleSubmit = () => {
+    if (!form.Symbol) {
+      return alert("Please select Symbol");
+    }
+
     axios
-      .get("/symbols")
+      .get("/cash-reports/bhavcopy", {
+        params: form,
+      })
       .then((response) => {
+        console.log(response);
         const res = response.data;
-        setSymbols(res.data);
-        setForm((prevForm) => {
+        const data = res.data.map((row) => {
+          const momentDate = moment(new Date(row.Timestamp));
+          const year = momentDate.year();
+          const month = momentDate.month();
+          const day = momentDate.day();
           return {
-            ...prevForm,
-            Symbol: res.data[0].name,
+            date: `${day}-${month}-${year}`,
+            [form.Symbol]: row.High,
           };
         });
+        setData(data);
       })
       .catch((error) => {
         alert(error.message);
       });
-  }, []);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
   };
 
   function handleChange(val, id) {
@@ -44,9 +59,6 @@ function Graph(props) {
   }
 
   function handleDateChange(date, id) {
-    // console.log(date, id);
-    // const [from, to] = dates;
-
     setForm((prevForm) => ({
       ...prevForm,
       [id]: moment(date).format("MM/DD/YYYY"),
@@ -58,20 +70,7 @@ function Graph(props) {
       <WhiteBoard>
         <Form onSubmit={handleSubmit}>
           <Form.Body>
-            <Form.Select
-              id="Symbol"
-              isRequired
-              value={form.Symbol}
-              label="Select Symbol"
-              onSelect={handleChange}
-            >
-              {symbols.map((symbol) => (
-                <option value={symbol.name} key={symbol._id}>
-                  {symbol.name}
-                </option>
-              ))}
-            </Form.Select>
-
+            <SymbolDropdown id="Symbol" onChange={handleChange} />
             <DateRangePicker
               onChange={handleDateChange}
               startDate={form.from}
@@ -83,6 +82,27 @@ function Graph(props) {
             <Button>Submit</Button>
           </Form.Actions>
         </Form>
+      </WhiteBoard>
+
+      <WhiteBoard>
+        <LineChart
+          className="mt-4 m-auto"
+          width={1100}
+          height={500}
+          data={data}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey={form.Symbol}
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
       </WhiteBoard>
     </div>
   );
