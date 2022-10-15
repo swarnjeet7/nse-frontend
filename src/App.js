@@ -9,6 +9,7 @@ import CashReports from "src/modules/cashReports";
 import FoReports from "src/modules/foReports";
 import Portfolio from "src/modules/portfolio";
 import Import from "src/modules/import";
+import Users from "src/modules/users";
 import "./App.scss";
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
           <Route path="/portfolio">
             <Route path="create" element={<Portfolio.Create />} />
             <Route path="manage" element={<Portfolio.Manage />} />
+          </Route>
+
+          <Route path="/users">
+            <Route path="manage" element={<Users.Manage />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

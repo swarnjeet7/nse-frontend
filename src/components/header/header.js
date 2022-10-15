@@ -54,7 +54,7 @@ function Header(props) {
             </Dropdown>
 
             <Dropdown title="Users" id="users-dropdown">
-              <Dropdown.Item href="/user/manage">Manage Users</Dropdown.Item>
+              <Dropdown.Item href="/users/manage">Manage Users</Dropdown.Item>
             </Dropdown>
 
             <Dropdown title="Profile" id="profile-dropdown" isProfile>

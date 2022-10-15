@@ -10,24 +10,24 @@ import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
 import { DEFAULT_FORM } from "./constant";
 
-function Create() {
-  const [selectedPortfolio, setSelectedPortfolio] = useState({});
+function Manage() {
+  const [selectedUser, setSelectedUser] = useState({});
   const [form, setForm] = useState(DEFAULT_FORM);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [profileList, setProfileList] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getAllPortfolio();
+    getAllUsers();
   }, []);
 
-  function getAllPortfolio() {
+  function getAllUsers() {
     axios
-      .get("/portfolio")
+      .get("/user/all")
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-          setProfileList(res.data);
+          setUsers(res.data);
         } else {
           alert(res.message);
         }
@@ -39,14 +39,14 @@ function Create() {
 
   function handleFormSubmit() {
     axios
-      .post("/portfolio", {
+      .post("/users/create", {
         ...form,
       })
       .then((response) => {
         const res = response.data;
         alert(res.message);
         setForm(DEFAULT_FORM);
-        getAllPortfolio();
+        getAllUsers();
       })
       .catch((error) => {
         alert(error.message);
@@ -66,7 +66,7 @@ function Create() {
   }
 
   function handleClick(value) {
-    setSelectedPortfolio(value);
+    setSelectedUser(value);
   }
 
   return (
@@ -74,35 +74,56 @@ function Create() {
       <Grid col="2">
         <GridCell>
           <WhiteBoard fullHeight>
-            <Title divider>Create Portfolio</Title>
+            <Title divider>Create User</Title>
             <Form onSubmit={handleFormSubmit} isVertical>
               <Form.Body>
                 <Form.Input
-                  id="Portfolio"
+                  id="UserName"
                   isRequired
-                  value={form.Portfolio}
-                  label="Portfolio Name"
+                  value={form.UserName}
+                  label="Enter username"
                   onChange={handleChange}
                 />
+
+                <Form.Select
+                  id="UserType"
+                  isRequired
+                  value={form.UserType}
+                  label="Enter usertype"
+                  onChange={handleChange}
+                >
+                  <option value="Manager">Manager</option>
+                  <option value="Executive">Executive</option>
+                  <option value="Admin">Admin</option>
+                </Form.Select>
 
                 <Form.Input
                   id="FullName"
                   isRequired
                   value={form.FullName}
-                  label="Full Name"
+                  label="Enter full name"
                   onChange={handleChange}
                 />
 
-                <Form.Textarea
-                  id="Address"
+                <Form.Input
+                  type="password"
+                  id="Password"
                   isRequired
-                  value={form.Address}
-                  label="Full Address"
+                  value={form.Password}
+                  label="Enter password"
+                  onChange={handleChange}
+                />
+
+                <Form.Input
+                  id="ConfirmPassword"
+                  isRequired
+                  value={form.ConfirmPassword}
+                  label="Enter confirm password"
                   onChange={handleChange}
                 />
               </Form.Body>
               <Form.Actions>
-                <Button isInline>Create Portfolio</Button>
+                <Button isInline>Create User</Button>
               </Form.Actions>
             </Form>
           </WhiteBoard>
@@ -110,13 +131,13 @@ function Create() {
 
         <GridCell>
           <WhiteBoard fullHeight>
-            <Title divider>Created Portfolio Map</Title>
+            <Title divider>Managed Users Map</Title>
             <Form isVertical>
               <Form.Body>
                 <MultiCheckbox
-                  list={profileList}
-                  label="Portfolio"
-                  value={selectedPortfolio.Portfolio}
+                  list={users}
+                  label="UserName"
+                  value={selectedUser.UserName}
                   onSelect={handleClick}
                 />
               </Form.Body>
@@ -124,17 +145,17 @@ function Create() {
                 <Button
                   onClick={() => setShowEditDialog(true)}
                   isInline
-                  isDisabled={!selectedPortfolio.Portfolio}
+                  isDisabled={!selectedUser.UserName}
                 >
-                  Edit Portfolio
+                  Edit User
                 </Button>
 
                 <Button
                   onClick={() => setShowDeleteDialog(true)}
                   isInline
-                  isDisabled={!selectedPortfolio.Portfolio}
+                  isDisabled={!selectedUser.UserName}
                 >
-                  Delete Portfolio
+                  Delete User
                 </Button>
               </Form.Actions>
             </Form>
@@ -144,19 +165,19 @@ function Create() {
       {showEditDialog && (
         <EditDialog
           onHide={handleCloseEditDialog}
-          portfolio={selectedPortfolio}
-          getData={getAllPortfolio}
+          user={selectedUser}
+          getUsers={getAllUsers}
         />
       )}
       {showDeleteDialog && (
         <DeleteDialog
           onHide={handleCloseDeleteDialog}
-          portfolio={selectedPortfolio}
-          getData={getAllPortfolio}
+          user={selectedUser}
+          getUsers={getAllUsers}
         />
       )}
     </>
   );
 }
 
-export default Create;
+export default Manage;
