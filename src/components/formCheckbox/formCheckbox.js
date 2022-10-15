@@ -11,6 +11,7 @@ export default function FormCheckbox({
     "form-checkbox--checked": isChecked,
   });
   function handleClick() {
+    console.log(item);
     if (item) {
       return onChange(item);
     }

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useState, useEffect } from "react";
 import { Grid, GridCell } from "src/atoms/grid";
 import Form from "src/components/form/form";
@@ -5,9 +6,8 @@ import Button from "src/components/button/button";
 import Title from "src/atoms/title";
 import MultiCheckbox from "src/components/multiCheckbox";
 import WhiteBoard from "src/components/whiteBoard";
-import { Badge, BadgeList } from "src/components/badge";
+import { BadgeList } from "src/components/badge";
 import AddDialog from "./addDialog";
-
 import axios from "axios";
 
 function Manage() {
@@ -78,25 +78,31 @@ function Manage() {
 
         <GridCell>
           <WhiteBoard fullHeight>
-            <Title divider>Portfolio Script</Title>
-            <Form isVertical>
-              <Form.Body>
-                <BadgeList list={portfolioScripts} />
-              </Form.Body>
-              <Form.Actions>
-                <Button
-                  onClick={() => setAddDialogStatus(true)}
-                  isInline
-                  isDisabled={!selectedPortfolio.Portfolio}
-                >
-                  Add More
+            <Title divider justify="between">
+              <span>Portfolio Script</span>
+              {selectedPortfolio.Portfolio && (
+                <Button onClick={() => setAddDialogStatus(true)} isInline>
+                  {_.isEmpty(selectedPortfolio.Scripts) ? "Add" : "Add More"}
                 </Button>
-              </Form.Actions>
-            </Form>
+              )}
+            </Title>
+
+            {_.isEmpty(selectedPortfolio) ? (
+              "Select portfolio from left side portfolio map"
+            ) : _.isEmpty(portfolioScripts) ? (
+              "There is no script added yet, please add some"
+            ) : (
+              <BadgeList list={portfolioScripts} />
+            )}
           </WhiteBoard>
         </GridCell>
       </Grid>
-      {addDialogStatus && <AddDialog />}
+      {addDialogStatus && (
+        <AddDialog
+          portfolio={selectedPortfolio}
+          onHide={() => setAddDialogStatus(false)}
+        />
+      )}
     </>
   );
 }

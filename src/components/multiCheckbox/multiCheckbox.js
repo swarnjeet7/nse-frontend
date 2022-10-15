@@ -1,10 +1,24 @@
+import _ from "lodash";
 import FormCheckbox from "../formCheckbox";
 
-export default function MultiCheckbox({ list, value, label, onSelect }) {
+export default function MultiCheckbox({
+  list,
+  value,
+  label,
+  onSelect,
+  Multiple,
+}) {
   return (
     <div>
-      {list.map((item) => {
-        const { _id } = item;
+      {list.map((item, i) => {
+        const { _id = "checkbox" + i } = item;
+        let isChecked = value === item[label];
+
+        if (Multiple && !_.isEmpty(value)) {
+          isChecked = value.some((obj) => {
+            return obj[label] === item[label];
+          });
+        }
 
         return (
           <FormCheckbox
@@ -12,7 +26,7 @@ export default function MultiCheckbox({ list, value, label, onSelect }) {
             label={item[label]}
             item={item}
             onChange={(item) => onSelect(item)}
-            isChecked={value === item[label]}
+            isChecked={isChecked}
           />
         );
       })}

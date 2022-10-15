@@ -4,12 +4,13 @@ import WhiteBoard from "src/components/whiteBoard";
 import Title from "src/atoms/title";
 import Button from "src/components/button/button";
 import Form from "src/components/form/form";
+import SearchBox from "src/components/searchBox";
 import axios from "axios";
 
 export default function AddDialog({ onHide, portfolio }) {
   const [form, setForm] = useState(portfolio);
+  const [searchValue, setSearchValue] = useState("");
 
-  console.log("edit");
   function handleFormSubmit() {
     axios
       .patch("/portfolio", {
@@ -31,35 +32,19 @@ export default function AddDialog({ onHide, portfolio }) {
   return (
     <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
       <WhiteBoard>
-        <Title divider>Update Portfolio</Title>
+        <Title divider>Add Symbols</Title>
         <Form onSubmit={handleFormSubmit} isVertical>
           <Form.Body>
             <Form.Input
-              id="Portfolio"
-              isRequired
-              value={form.Portfolio}
-              label="Portfolio Name"
-              onChange={handleChange}
+              id="Symbol"
+              value={searchValue}
+              onChange={(value) => setSearchValue(value)}
+              placeholder="Search symbol"
             />
-
-            <Form.Input
-              id="FullName"
-              isRequired
-              value={form.FullName}
-              label="Full Name"
-              onChange={handleChange}
-            />
-
-            <Form.Textarea
-              id="Address"
-              isRequired
-              value={form.Address}
-              label="Full Address"
-              onChange={handleChange}
-            />
+            <SearchBox />
           </Form.Body>
           <Form.Actions>
-            <Button isInline>Update Portfolio</Button>
+            <Button isInline>Submit</Button>
           </Form.Actions>
         </Form>
       </WhiteBoard>

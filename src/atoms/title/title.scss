@@ -1,10 +1,17 @@
 .title {
+  display: flex;
+  align-items: center;
   font-size: 28px;
-  padding: 0 0 24px;
+  padding: 0 0 16px;
   margin: 0;
 
   &--divider {
     margin: 0 0 16px;
     border-bottom: 1px solid #896c71;
+  }
+
+  .btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
 }

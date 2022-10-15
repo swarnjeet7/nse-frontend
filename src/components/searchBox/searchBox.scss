@@ -1,0 +1,11 @@
+.search {
+  &-box {
+    max-height: 400px;
+    overflow: auto;
+  }
+  &-items {
+    margin: 15px 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}

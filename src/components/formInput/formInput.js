@@ -32,9 +32,11 @@ function FormInput(props) {
 
   return (
     <label className={classes}>
-      <span className="form-input__label" data-test-id={labelDataTestId}>
-        {label}
-      </span>
+      {label && (
+        <span className="form-input__label" data-test-id={labelDataTestId}>
+          {label}
+        </span>
+      )}
       {isDatePicker ? (
         <DatePicker
           className="form-input__input"
