@@ -2,6 +2,11 @@
   display: flex;
   align-items: flex-end;
 
+  &--file-upload {
+    max-width: 800px;
+    margin: auto;
+  }
+
   &__body {
     display: flex;
   }
@@ -91,6 +96,14 @@
   &__file-input {
     position: relative;
     margin-right: 20px;
+    display: flex;
+    width: 800px;
+    margin: 0 auto;
+    height: 450px;
+    border: 1px dashed var(--text-color-brand);
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
   }
 
   [type="file"] {
@@ -109,6 +122,8 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     overflow: hidden;
     cursor: pointer;
+    position: absolute;
+    visibility: hidden;
   }
 
   &-checkbox {
@@ -147,7 +162,11 @@
     }
   }
 }
-
+.file-input-icon {
+  width: 100px;
+  display: block;
+  margin: 20px auto 0;
+}
 .text-capitalize {
   text-transform: capitalize;
 }

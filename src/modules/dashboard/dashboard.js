@@ -1,5 +1,11 @@
+import WhiteBoard from "src/components/whiteBoard";
+
 function Dashboard(props) {
-  return <h1>This is a dashboard</h1>;
+  return (
+    <>
+      <WhiteBoard>WhiteBoard</WhiteBoard>
+    </>
+  );
 }
 
 export default Dashboard;

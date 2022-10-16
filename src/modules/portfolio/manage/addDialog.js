@@ -8,7 +8,7 @@ import SearchBox from "src/components/searchBox";
 import axios from "axios";
 
 export default function AddDialog({ onHide, portfolio }) {
-  const [form, setForm] = useState(portfolio);
+  const [form] = useState(portfolio);
   const [searchValue, setSearchValue] = useState("");
 
   function handleFormSubmit() {
@@ -25,9 +25,9 @@ export default function AddDialog({ onHide, portfolio }) {
       });
   }
 
-  function handleChange(value, id) {
-    setForm((prevForm) => ({ ...prevForm, [id]: value }));
-  }
+  // function handleChange(value, id) {
+  //   setForm((prevForm) => ({ ...prevForm, [id]: value }));
+  // }
 
   return (
     <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>

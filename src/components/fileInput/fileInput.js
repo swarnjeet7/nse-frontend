@@ -2,7 +2,8 @@ import _ from "lodash";
 import classnames from "classnames";
 
 function FormInput(props) {
-  const { placeholder, label, onChange, isRequired, className, id } = props;
+  const { placeholder, label, onChange, isRequired, className, id, children } =
+    props;
   const labelKebabCase = _.kebabCase(label);
   // const labelCamelCase = _.camelCase(label);
   const classes = classnames("form__file-input", className, {
@@ -19,6 +20,7 @@ function FormInput(props) {
     <label className={classes}>
       <span className="form-input__label" data-test-id={labelDataTestId}>
         {label}
+        {children}
       </span>
       <input
         type="file"
