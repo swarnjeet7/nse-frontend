@@ -43,12 +43,10 @@ function Login() {
           navigate("/dashboard", { replace: true });
         } else {
           alert(data.message);
-          // set error to show the message;
-          // setError(res.message);
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(function (err) {
+        alert(err.message);
       });
   }
 
@@ -67,7 +65,7 @@ function Login() {
         </div>
         <div className="login-box__right">
           <div className="image-wrapper">
-            <img src={logo} alt="NSE Stock Analysis" width="200" />
+            <img src={logo} alt="NSE Stock Analysis" width="150" />
           </div>
           <h2 className="page-title">Login</h2>
 

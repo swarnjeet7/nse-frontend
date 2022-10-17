@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { useState, useEffect } from "react";
 import {
   LineChart,
@@ -16,7 +15,7 @@ import List from "src/components/list";
 import axios from "axios";
 
 function Dashboard(props) {
-  const [topPortfolio, setTopPortl] = useState({
+  const [topPortfolio, setTopPortfolio] = useState({
     Portfoilo: "Swarnjeet",
     FullName: "Swarnjeet Singh",
     Scripts: ["20MICRONS", "3MINDIA", "3IINFOLTD"],
@@ -56,32 +55,56 @@ function Dashboard(props) {
       "3IINFOLTD": 78.9,
     },
   ];
-  const toppers = [
-    { id: 1, name: "TATAAIG", gain: 12 },
-    { id: 2, name: "AXISBANK", gain: 9 },
-    { id: 3, name: "ICICPROCU", gain: 8.7 },
-  ];
+  // const toppers = [
+  //   { id: 1, name: "TATAAIG", gain: 12 },
+  //   { id: 2, name: "AXISBANK", gain: 9 },
+  //   { id: 3, name: "ICICPROCU", gain: 8.7 },
+  // ];
 
-  const loosers = [
-    { id: 1, name: "TATAAIG", gain: 12 },
-    { id: 2, name: "AXISBANK", gain: 9 },
-    { id: 3, name: "ICICPROCU", gain: 8.7 },
-  ];
+  // const loosers = [
+  //   { id: 1, name: "TATAAIG", gain: 12 },
+  //   { id: 2, name: "AXISBANK", gain: 9 },
+  //   { id: 3, name: "ICICPROCU", gain: 8.7 },
+  // ];
 
   useEffect(() => {
-    setTopGainers(toppers);
-    setTopLoosers(loosers);
+    axios
+      .get("/cash-reports/top?date=05%2F25%2F2022&type=Gainers&count=3")
+      .then((response) => {
+        const res = response.data;
+        if (res.status === 200) {
+          setTopGainers(res.data);
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+
+    axios
+      .get("/cash-reports/top?date=05%2F25%2F2022&type=Loosers&count=3")
+      .then((response) => {
+        const res = response.data;
+        if (res.status === 200) {
+          setTopLoosers(res.data);
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
     axios
       .get("/portfolio/top")
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-        } else {
-          // alert(res.message);
+          setTopPortfolio(res.data);
         }
       })
       .catch((err) => {
-        //alert(err.message)
+        alert(err.message);
       });
   }, []);
 
