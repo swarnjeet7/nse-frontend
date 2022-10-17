@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import axios from "axios";
 
-function Graph(props) {
+function Graph() {
   const [form, setForm] = useState({
     Symbol: "",
     from: "05/23/2022",
@@ -34,18 +34,24 @@ function Graph(props) {
         params: form,
       })
       .then((response) => {
-        console.log(response);
         const res = response.data;
-        const data = res.data.map((row) => {
-          const momentDate = moment(new Date(row.Timestamp));
-          const year = momentDate.year();
-          const month = momentDate.month();
-          const day = momentDate.day();
+        const filterData = res.data.filter((row, i) => {
+          if (
+            i > 0 &&
+            new Date(res.data[i - 1].Timestamp) < new Date(row.Timestamp)
+          ) {
+            return row;
+          }
+          return null;
+        });
+
+        const data = filterData.map((row, i) => {
           return {
-            date: `${day}-${month}-${year}`,
+            date: moment(new Date(row.Timestamp)).format("DD-MM-YYYY"),
             [form.Symbol]: row.High,
           };
         });
+        console.log(JSON.stringify(data));
         setData(data);
       })
       .catch((error) => {

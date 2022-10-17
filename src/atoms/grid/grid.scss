@@ -34,6 +34,14 @@
       flex: 0 0 calc(50% - 20px);
     }
   }
+
+  &--8of12 {
+    flex: 0 0 calc(100 / 12 * 8% - 20px);
+  }
+
+  &--4of12 {
+    flex: 0 0 calc(100 / 12 * 4% - 20px);
+  }
 }
 
 .justify-content-between {
