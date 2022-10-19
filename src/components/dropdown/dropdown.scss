@@ -19,7 +19,7 @@
     }
 
     &:hover,
-    &--active {
+    .active {
       color: rgba(255, 255, 255, 1);
     }
 
@@ -43,9 +43,10 @@
     min-width: 120px;
     background-color: var(--background-color-primary);
     border-radius: var(--border-radius-medium);
-    height: 0;
     overflow: hidden;
-    transition: height 0.25s;
+    transition: scale 0.25s;
+    scale: 0;
+    transform-origin: left top;
     box-shadow: 0 5px 10px #c8ad6b;
   }
 
@@ -58,6 +59,12 @@
 
     &:hover {
       background: var(--white-raw);
+    }
+  }
+
+  &.open {
+    .dropdown__menu {
+      scale: 1;
     }
   }
 }

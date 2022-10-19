@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import classnames from "classnames";
 import "./dropdown.scss";
 
@@ -11,18 +11,22 @@ const USER = (
 function Dropdown(props) {
   const { children, title, id, isProfile } = props;
   const href = "#";
-  const dropdownRef = useRef(null);
-  const togglerRef = useRef(null);
   const menuRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutSide(evt) {
+      const cur = menuRef.current;
+      const node = evt.target;
+      if (cur.contains(node)) return;
+      setIsOpen(false);
+    }
+
+    document.addEventListener("click", handleClickOutSide);
+  }, []);
 
   function handleToggle(event) {
-    event.preventDefault();
-    const toggler = togglerRef.current;
-    toggler.classList.toggle("dropdown__toggle--active");
-    const menu = menuRef.current;
-    const isShowing = menu.classList.contains("dropdown__menu--show");
-    menu.style.height = isShowing ? `0px` : `${menu.scrollHeight}px`;
-    menu.classList.toggle("dropdown__menu--show");
+    setIsOpen((prevState) => !prevState);
   }
 
   const toggleClasses = classnames("dropdown__toggle", "", {
@@ -30,14 +34,8 @@ function Dropdown(props) {
   });
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
-      <a
-        className={toggleClasses}
-        href={href}
-        id={id}
-        onClick={handleToggle}
-        ref={togglerRef}
-      >
+    <div ref={menuRef} className={isOpen ? "dropdown open" : "dropdown hidden"}>
+      <a className={toggleClasses} href={href} id={id} onClick={handleToggle}>
         {isProfile ? USER : title}
       </a>
       <div ref={menuRef} className="dropdown__menu">

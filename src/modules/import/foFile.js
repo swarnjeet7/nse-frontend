@@ -54,7 +54,7 @@ function FoFile() {
             onChange={handleFileChange}
           >
             <svg
-              class="file-input-icon"
+              className="file-input-icon"
               focusable="false"
               viewBox="0 0 24 24"
               aria-hidden="true"
