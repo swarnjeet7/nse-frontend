@@ -16,13 +16,18 @@ function Dropdown(props) {
 
   useEffect(() => {
     function handleClickOutSide(evt) {
-      const cur = menuRef.current;
-      const node = evt.target;
-      if (cur.contains(node)) return;
+      const currentNode = menuRef.current;
+      const targetNode = evt.target;
+      if (!currentNode || currentNode.contains(targetNode)) {
+        return;
+      }
       setIsOpen(false);
     }
-
     document.addEventListener("click", handleClickOutSide);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutSide);
+    };
   }, []);
 
   function handleToggle(event) {

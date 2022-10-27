@@ -12,6 +12,7 @@ import WhiteBoard from "src/components/whiteBoard";
 import { Grid, GridCell } from "src/atoms/grid";
 import Title from "src/atoms/title";
 import List from "src/components/list";
+import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 function Dashboard(props) {
@@ -23,6 +24,8 @@ function Dashboard(props) {
   });
   const [topGainers, setTopGainers] = useState([]);
   const [topLoosers, setTopLoosers] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [toasterType, setToasterType] = useState(null);
   const data = [
     {
       date: "23-05-2022",
@@ -68,115 +71,123 @@ function Dashboard(props) {
   // ];
 
   useEffect(() => {
-    axios
-      .get("/cash-reports/top?date=05%2F25%2F2022&type=Gainers&count=3")
-      .then((response) => {
-        const res = response.data;
-        if (res.status === 200) {
-          setTopGainers(res.data);
-        } else {
-          alert(res.message);
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-
-    axios
-      .get("/cash-reports/top?date=05%2F25%2F2022&type=Loosers&count=3")
-      .then((response) => {
-        const res = response.data;
-        if (res.status === 200) {
-          setTopLoosers(res.data);
-        } else {
-          alert(res.message);
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    // axios
+    //   .get("/cash-reports/top?date=05%2F25%2F2022&type=Gainers&count=3")
+    //   .then((response) => {
+    //     const res = response.data;
+    //     if (res.status === 200) {
+    //       setTopGainers(res.data);
+    //     } else {
+    //       alert(res.message);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //     <Toaster type="error" message={err.message} />;
+    //   });
+    // axios
+    //   .get("/cash-reports/top?date=05%2F25%2F2022&type=Loosers&count=3")
+    //   .then((response) => {
+    //     const res = response.data;
+    //     if (res.status === 200) {
+    //       setTopLoosers(res.data);
+    //     } else {
+    //       alert(res.message);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err.message);
+    //   });
     axios
       .get("/portfolio/top")
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
           setTopPortfolio(res.data);
+          setToasterType("success");
+        } else {
+          setMessage(res.message);
+          setToasterType("info");
         }
       })
       .catch((err) => {
-        alert(err.message);
+        setMessage(err.message);
+        setToasterType("error");
       });
   }, []);
 
   return (
-    <Grid className="justify-content-between">
-      <GridCell col="8">
-        <WhiteBoard>
-          <Title divider>
-            Top portfolio scripts with graph :- {topPortfolio.Portfoilo}
-          </Title>
-          <LineChart
-            className="mt-4 m-auto"
-            width={700}
-            height={400}
-            data={data}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey={topPortfolio.Scripts[0]}
-              stroke="#f5e5bf"
-              activeDot={{ r: 8 }}
-            />
-            <Line
-              type="monotone"
-              dataKey={topPortfolio.Scripts[1]}
-              stroke="#998a66"
-              activeDot={{ r: 8 }}
-            />
-            <Line
-              type="monotone"
-              dataKey={topPortfolio.Scripts[2]}
-              stroke="#d12a35"
-              activeDot={{ r: 8 }}
-            />
-          </LineChart>
-        </WhiteBoard>
-      </GridCell>
-      <GridCell col="4">
-        <WhiteBoard>
-          <Title divider className="justify-content-between">
-            <span>Top 3 Gainers</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              style={{ width: 30, height: 30, fill: "#1aaf1a" }}
+    <>
+      <Grid className="justify-content-between">
+        <GridCell col="8">
+          <WhiteBoard>
+            <Title divider>
+              Top portfolio scripts with graph :- {topPortfolio.Portfoilo}
+            </Title>
+            <LineChart
+              className="mt-4 m-auto"
+              width={700}
+              height={400}
+              data={data}
             >
-              <path d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" />
-            </svg>
-          </Title>
-          <List data={topGainers} isSuccess></List>
-        </WhiteBoard>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey={topPortfolio.Scripts[0]}
+                stroke="#f5e5bf"
+                activeDot={{ r: 8 }}
+              />
+              <Line
+                type="monotone"
+                dataKey={topPortfolio.Scripts[1]}
+                stroke="#998a66"
+                activeDot={{ r: 8 }}
+              />
+              <Line
+                type="monotone"
+                dataKey={topPortfolio.Scripts[2]}
+                stroke="#d12a35"
+                activeDot={{ r: 8 }}
+              />
+            </LineChart>
+          </WhiteBoard>
+        </GridCell>
+        <GridCell col="4">
+          <WhiteBoard>
+            <Title divider className="justify-content-between">
+              <span>Top 3 Gainers</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                style={{ width: 30, height: 30, fill: "#1aaf1a" }}
+              >
+                <path d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" />
+              </svg>
+            </Title>
+            <List data={topGainers} isSuccess></List>
+          </WhiteBoard>
 
-        <WhiteBoard>
-          <Title divider className="justify-content-between">
-            <span>Top 3 Loosers</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              style={{ width: 30, height: 30, fill: "#da1818" }}
-            >
-              <path d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" />
-            </svg>
-          </Title>
-          <List data={topLoosers} isLoosers></List>
-        </WhiteBoard>
-      </GridCell>
-    </Grid>
+          <WhiteBoard>
+            <Title divider className="justify-content-between">
+              <span>Top 3 Loosers</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                style={{ width: 30, height: 30, fill: "#da1818" }}
+              >
+                <path d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" />
+              </svg>
+            </Title>
+            <List data={topLoosers} isLoosers></List>
+          </WhiteBoard>
+        </GridCell>
+      </Grid>
+      {message && <Toaster type={toasterType} message={message} />}
+    </>
   );
 }
 

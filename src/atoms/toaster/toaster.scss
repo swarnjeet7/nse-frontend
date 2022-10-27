@@ -1,0 +1,52 @@
+.toaster {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 105;
+  background: white;
+  border-radius: 5px;
+  transform: translate(-50%, -110%);
+  transition: transform 0.25s ease;
+  border-left: 3px solid transparent;
+
+  &--active {
+    transform: translate(-50%, 20px);
+  }
+
+  &__body,
+  &__action {
+    padding: 20px;
+  }
+
+  &__body {
+    border-right: 1px solid lightgray;
+  }
+
+  &__action {
+    cursor: pointer;
+  }
+
+  &__close {
+    padding: 0;
+    border: 0;
+    background: 0;
+    cursor: pointer;
+  }
+
+  &--error {
+    border-left-color: #ff2121;
+  }
+
+  &--success {
+    border-left-color: #39df39;
+  }
+
+  &--warning {
+    border-left-color: #ffa500;
+  }
+
+  &--info {
+    border-left-color: #2f62ff;
+  }
+}

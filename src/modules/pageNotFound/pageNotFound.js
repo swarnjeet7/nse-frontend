@@ -8,10 +8,10 @@ function PageNotFound() {
   return (
     <WhiteBoard>
       <img className="img-block" src={ImgNotFound} alt="Page not found" />
-      <Title className="title-404 color-dark" center>
+      <Title className="title-404 color-dark" justify="center">
         404
       </Title>
-      <Title className="sub-title-404 color-dark" center>
+      <Title className="sub-title-404 color-dark" justify="center">
         Page not found
       </Title>
       <div className="text-wrapper">
