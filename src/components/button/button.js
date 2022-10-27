@@ -9,11 +9,26 @@ function Button(props) {
     isInline,
     className,
     isDisabled,
+    isLink,
+    href,
   } = props;
   const classes = classnames("btn", className, {
     "btn--inline": isInline,
     "btn--disable": isDisabled,
   });
+  if (isLink) {
+    return (
+      <a
+        type={type}
+        className={classes}
+        onClick={onClick}
+        disabled={isDisabled}
+        href={href}
+      >
+        {children}
+      </a>
+    );
+  }
   return (
     <button
       type={type}

@@ -6,6 +6,7 @@
     text-decoration: none;
     color: rgba(255, 255, 255, 0.7);
     display: block;
+    text-transform: uppercase;
 
     &:not(&--profile):after {
       content: "";
