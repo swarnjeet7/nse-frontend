@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import Loader from "src/atoms/loader";
 import "./button.scss";
 
 function Button(props) {
@@ -11,11 +12,14 @@ function Button(props) {
     isDisabled,
     isLink,
     href,
+    isWaiting,
   } = props;
   const classes = classnames("btn", className, {
     "btn--inline": isInline,
     "btn--disable": isDisabled,
+    "btn--loading": isWaiting,
   });
+
   if (isLink) {
     return (
       <a
@@ -26,9 +30,11 @@ function Button(props) {
         href={href}
       >
         {children}
+        {isWaiting && <Loader />}
       </a>
     );
   }
+
   return (
     <button
       type={type}
@@ -37,6 +43,7 @@ function Button(props) {
       disabled={isDisabled}
     >
       {children}
+      {isWaiting && <Loader />}
     </button>
   );
 }

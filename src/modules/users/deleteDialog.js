@@ -10,8 +10,11 @@ import axios from "axios";
 export default function DeleteDialog({ onHide, user, getData }) {
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .delete("/user", {
         data: user,
@@ -28,6 +31,7 @@ export default function DeleteDialog({ onHide, user, getData }) {
       })
       .finally(() => {
         onHide();
+        setLoading(false);
       });
   }
 
@@ -41,7 +45,9 @@ export default function DeleteDialog({ onHide, user, getData }) {
               <p>Do you want to delete this user? </p>
             </Form.Body>
             <Form.Actions>
-              <Button isInline>Delete User</Button>
+              <Button isInline isWaiting={loading}>
+                Delete User
+              </Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

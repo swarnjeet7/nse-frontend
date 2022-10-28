@@ -17,8 +17,11 @@ function Bhavcopy() {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .get("/fo-reports/bhavcopy", {
         params: {
@@ -37,7 +40,8 @@ function Bhavcopy() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleInputChange(val, id) {
@@ -73,7 +77,7 @@ function Bhavcopy() {
               />
             </Form.Body>
             <Form.Actions>
-              <Button>Submit</Button>
+              <Button isWaiting={loading}>Submit</Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

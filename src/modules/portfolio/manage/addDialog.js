@@ -13,8 +13,11 @@ export default function AddDialog({ onHide, portfolio }) {
   const [searchValue, setSearchValue] = useState("");
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .patch("/portfolio", {
         ...form,
@@ -27,7 +30,8 @@ export default function AddDialog({ onHide, portfolio }) {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -46,7 +50,9 @@ export default function AddDialog({ onHide, portfolio }) {
               <SearchBox />
             </Form.Body>
             <Form.Actions>
-              <Button isInline>Submit</Button>
+              <Button isInline isWaiting={loading}>
+                Submit
+              </Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

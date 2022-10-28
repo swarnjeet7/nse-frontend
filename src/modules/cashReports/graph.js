@@ -26,6 +26,7 @@ function Graph() {
   const [data, setData] = useState([]);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     if (!form.Symbol) {
@@ -33,6 +34,7 @@ function Graph() {
       setType("error");
       return;
     }
+    setLoading(true);
 
     axios
       .get("/cash-reports/bhavcopy", {
@@ -66,7 +68,8 @@ function Graph() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   function handleChange(val, id) {
@@ -95,7 +98,7 @@ function Graph() {
               />
             </Form.Body>
             <Form.Actions>
-              <Button>Submit</Button>
+              <Button isWaiting={loading}>Submit</Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

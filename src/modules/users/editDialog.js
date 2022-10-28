@@ -11,12 +11,15 @@ export default function EditDialog({ onHide, user }) {
   const [form, setForm] = useState(user);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleChange(value, id) {
     setForm((prevForm) => ({ ...prevForm, [id]: value }));
   }
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .patch("/user/update", {
         ...form,
@@ -32,6 +35,7 @@ export default function EditDialog({ onHide, user }) {
       })
       .finally(() => {
         onHide();
+        setLoading(false);
       });
   }
 
@@ -88,7 +92,9 @@ export default function EditDialog({ onHide, user }) {
               />
             </Form.Body>
             <Form.Actions>
-              <Button isInline>Update User</Button>
+              <Button isInline isWaiting={loading}>
+                Update User
+              </Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

@@ -17,8 +17,10 @@ function GainersLoosers() {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
     axios
       .get("/cash-reports/top", {
         params: {
@@ -37,7 +39,8 @@ function GainersLoosers() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleChange(val, id) {
@@ -82,7 +85,7 @@ function GainersLoosers() {
               />
             </Form.Body>
             <Form.Actions>
-              <Button>Submit</Button>
+              <Button isWaiting={loading}>Submit</Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

@@ -13,8 +13,11 @@ function Create(props) {
   });
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .post("/pivots", {
         ...form,
@@ -27,7 +30,8 @@ function Create(props) {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleInputChange(value, id) {
@@ -55,7 +59,7 @@ function Create(props) {
               />
             </Form.Body>
             <Form.Actions>
-              <Button>Submit</Button>
+              <Button isWaiting={loading}>Submit</Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

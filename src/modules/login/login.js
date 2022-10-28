@@ -17,6 +17,7 @@ function Login() {
   const navigate = useNavigate();
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const isLogin = sessionStorage.getItem("auth");
@@ -35,6 +36,7 @@ function Login() {
       setType("error");
       return;
     }
+    setLoading(true);
 
     axios
       .post("/user/login", {
@@ -47,12 +49,15 @@ function Login() {
           navigate("/dashboard", { replace: true });
         } else {
           setMessage(res.message);
-          setType("info");
+          setType("error");
         }
       })
       .catch(function (error) {
         setMessage(error.message);
         setType("error");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -93,13 +98,13 @@ function Login() {
                 />
               </Form.Body>
               <Form.Actions>
-                <Button>Login</Button>
+                <Button isWaiting={loading}>Login</Button>
               </Form.Actions>
             </Form>
           </div>
         </div>
       </div>
-      {message && <Toaster type={type} message={message} />}
+      {message && <Toaster type={type} message={message} onHide={setMessage} />}
     </>
   );
 }

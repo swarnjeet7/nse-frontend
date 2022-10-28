@@ -19,12 +19,15 @@ function Manage() {
   const [users, setUsers] = useState([]);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
   function getAllUsers() {
+    setLoading(true);
+
     axios
       .get("/user/all")
       .then((response) => {
@@ -39,7 +42,8 @@ function Manage() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleFormSubmit() {
@@ -130,7 +134,9 @@ function Manage() {
                 />
               </Form.Body>
               <Form.Actions>
-                <Button isInline>Create User</Button>
+                <Button isInline isWaiting={loading}>
+                  Create User
+                </Button>
               </Form.Actions>
             </Form>
           </WhiteBoard>

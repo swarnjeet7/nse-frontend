@@ -16,8 +16,10 @@ function Show() {
   });
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
     axios
       .get("/pivots", {
         params: {
@@ -36,7 +38,8 @@ function Show() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleInputChange(val, id) {
@@ -68,7 +71,7 @@ function Show() {
               />
             </Form.Body>
             <Form.Actions>
-              <Button>Submit</Button>
+              <Button isWaiting={loading}>Submit</Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

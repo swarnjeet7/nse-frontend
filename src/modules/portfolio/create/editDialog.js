@@ -11,8 +11,11 @@ export default function EditDialog({ onHide, portfolio }) {
   const [form, setForm] = useState(portfolio);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .patch("/portfolio", {
         ...form,
@@ -25,7 +28,8 @@ export default function EditDialog({ onHide, portfolio }) {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleChange(value, id) {
@@ -64,7 +68,9 @@ export default function EditDialog({ onHide, portfolio }) {
               />
             </Form.Body>
             <Form.Actions>
-              <Button isInline>Update Portfolio</Button>
+              <Button isInline isWaiting={loading}>
+                Update Portfolio
+              </Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

@@ -10,8 +10,11 @@ import axios from "axios";
 export default function DeleteDialog({ onHide, portfolio, getData }) {
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .delete("/portfolio", {
         data: portfolio,
@@ -27,7 +30,8 @@ export default function DeleteDialog({ onHide, portfolio, getData }) {
         setMessage(error.message);
         setType("error");
         onHide();
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -40,7 +44,9 @@ export default function DeleteDialog({ onHide, portfolio, getData }) {
               <p>Do you want to delete this profile? </p>
             </Form.Body>
             <Form.Actions>
-              <Button isInline>Delete Profile</Button>
+              <Button isInline isWaiting={loading}>
+                Delete Profile
+              </Button>
             </Form.Actions>
           </Form>
         </WhiteBoard>

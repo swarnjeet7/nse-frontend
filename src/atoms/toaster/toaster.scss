@@ -1,6 +1,6 @@
 .toaster {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   z-index: 105;
@@ -9,6 +9,7 @@
   transform: translate(-50%, -110%);
   transition: transform 0.25s ease;
   border-left: 3px solid transparent;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 
   &--active {
     transform: translate(-50%, 20px);
@@ -20,7 +21,7 @@
   }
 
   &__body {
-    border-right: 1px solid lightgray;
+    border-right: 1px solid #eaeaea;
   }
 
   &__action {

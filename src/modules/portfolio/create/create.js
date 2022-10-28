@@ -19,6 +19,7 @@ function Create() {
   const [profileList, setProfileList] = useState([]);
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getAllPortfolio();
@@ -43,6 +44,8 @@ function Create() {
   }
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .post("/portfolio", {
         ...form,
@@ -57,7 +60,8 @@ function Create() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleChange(value, id) {
@@ -109,7 +113,9 @@ function Create() {
                 />
               </Form.Body>
               <Form.Actions>
-                <Button isInline>Create Portfolio</Button>
+                <Button isInline isWaiting={loading}>
+                  Create Portfolio
+                </Button>
               </Form.Actions>
             </Form>
           </WhiteBoard>

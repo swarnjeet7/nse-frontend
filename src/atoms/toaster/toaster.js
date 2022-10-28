@@ -2,36 +2,50 @@ import { useRef, useEffect } from "react";
 import classNames from "classnames";
 import "./toaster.scss";
 
-export default function Toaster({ type, className, message, delay = 3000 }) {
-  let timer = null;
+export default function Toaster({
+  type,
+  className,
+  message,
+  delay = 3000,
+  onHide,
+}) {
+  const timer = useRef(null);
   const toasterRef = useRef(null);
   const dynamicClass = `toaster--${type}`;
   const classes = classNames("toaster", className, {
     [dynamicClass]: type,
   });
 
-  function setTimer() {
-    if (timer != null) {
-      clearTimeout(timer);
+  useEffect(() => {
+    function setTimer() {
+      if (timer.current != null) {
+        clearTimeout(timer.current);
+      }
+
+      timer.current = setTimeout(function () {
+        toasterRef.current?.classList?.remove("toaster--active");
+        timer.current = null;
+        const clearTime = setTimeout(() => {
+          onHide(null);
+          clearTimeout(clearTime);
+        }, 100);
+      }, delay);
     }
 
-    timer = setTimeout(function () {
-      toasterRef.current.classList.remove("toaster--active");
-      timer = null;
-    }, delay);
-  }
-
-  useEffect(() => {
-    toasterRef.current.classList.add("toaster--active");
+    toasterRef.current?.classList?.add("toaster--active");
     setTimer();
     return () => {
-      clearTimeout(timer);
+      clearTimeout(timer.current);
     };
-  }, []);
+  }, [timer, delay, onHide]);
 
   function handleHide() {
-    clearTimeout(timer);
+    clearTimeout(timer.current);
     toasterRef.current.classList.remove("toaster--active");
+    const clearTime = setTimeout(() => {
+      onHide(null);
+      clearTimeout(clearTime);
+    }, 100);
   }
 
   return (
