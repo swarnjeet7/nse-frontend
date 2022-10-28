@@ -2,6 +2,7 @@
   padding: 25px;
   border-radius: var(--border-radius-medium);
   background-color: var(--white-raw);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
   & + .board {
     margin-top: 30px;

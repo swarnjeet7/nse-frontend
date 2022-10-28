@@ -10,6 +10,7 @@
   flex: 1;
   background-color: var(--white-raw);
   display: flex;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
   &__left {
     flex: 0 0 44%;

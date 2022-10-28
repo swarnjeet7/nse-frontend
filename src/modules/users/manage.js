@@ -26,8 +26,6 @@ function Manage() {
   }, []);
 
   function getAllUsers() {
-    setLoading(true);
-
     axios
       .get("/user/all")
       .then((response) => {
@@ -42,11 +40,12 @@ function Manage() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      })
-      .finally(() => setLoading(false));
+      });
   }
 
   function handleFormSubmit() {
+    setLoading(true);
+
     axios
       .post("/users/create", {
         ...form,
@@ -61,7 +60,8 @@ function Manage() {
       .catch((error) => {
         setMessage(error.message);
         setType("error");
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   function handleChange(value, id) {

@@ -52,7 +52,7 @@ export default function SearchBox({ onTextChange }) {
           onSelect={handleClick}
         />
       </div>
-      <Toaster type={type} message={message} />
+      {message && <Toaster type={type} message={message} onHide={setMessage} />}
     </>
   );
 }

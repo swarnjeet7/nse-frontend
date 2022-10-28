@@ -46,7 +46,9 @@ function SymbolDropdown({ selected, onChange, id = "Symbol" }) {
           </option>
         ))}
       </FormSelect>
-      {message && <Toaster type={toasterType} message={message} />}
+      {message && (
+        <Toaster type={toasterType} message={message} onHide={setMessage} />
+      )}
     </>
   );
 }

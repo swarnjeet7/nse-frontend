@@ -29,7 +29,7 @@ function Manage() {
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-          setPortfolioScripts(res.data);
+          setPortfolioScripts(res.data.Scripts);
         } else {
           setMessage(res.message);
           setType("info");
@@ -110,7 +110,7 @@ function Manage() {
           onHide={() => setAddDialogStatus(false)}
         />
       )}
-      {message && <Toaster type={type} message={message} />}
+      {message && <Toaster type={type} message={message} onHide={setMessage} />}
     </>
   );
 }

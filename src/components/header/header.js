@@ -58,8 +58,8 @@ function Header(props) {
             </Dropdown>
 
             <Dropdown title="Profile" id="profile-dropdown" isProfile>
-              <Dropdown.Item href="/logout">Logout</Dropdown.Item>
               <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+              <Dropdown.Item href="/logout">Logout</Dropdown.Item>
             </Dropdown>
           </Navbar>
         </Grid>

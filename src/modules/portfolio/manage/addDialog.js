@@ -13,7 +13,7 @@ export default function AddDialog({ onHide, portfolio }) {
   const [searchValue, setSearchValue] = useState("");
   const [type, setType] = useState(null);
   const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleFormSubmit() {
     setLoading(true);
@@ -57,7 +57,7 @@ export default function AddDialog({ onHide, portfolio }) {
           </Form>
         </WhiteBoard>
       </Dialog>
-      {message && <Toaster type={type} message={message} />}
+      {message && <Toaster type={type} message={message} onHide={setMessage} />}
     </>
   );
 }
