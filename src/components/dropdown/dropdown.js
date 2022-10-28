@@ -31,6 +31,7 @@ function Dropdown(props) {
   }, []);
 
   function handleToggle(event) {
+    event.preventDefault();
     setIsOpen((prevState) => !prevState);
   }
 

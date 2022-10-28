@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import FormSelect from "src/components/formSelect";
+import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 function PortfolioDropdown({ selected, onChange, id = "Portfolio" }) {
   const [data, setData] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [toasterType, setToasterType] = useState(null);
   const DEFAULT_VALUE = "Select portfolio";
 
   useEffect(() => {
@@ -14,10 +17,14 @@ function PortfolioDropdown({ selected, onChange, id = "Portfolio" }) {
         if (res.status === 200) {
           setData(res.data);
         } else {
-          alert(res.message);
+          setMessage(res.message);
+          setToasterType("info");
         }
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        setMessage(error.message);
+        setToasterType("error");
+      });
   }, []);
 
   function handleDropdownChange(value, id) {
@@ -25,19 +32,22 @@ function PortfolioDropdown({ selected, onChange, id = "Portfolio" }) {
   }
 
   return (
-    <FormSelect
-      id="Portfolio"
-      value={selected}
-      label="Select Portfolio"
-      onChange={handleDropdownChange}
-    >
-      <option value={null}>{DEFAULT_VALUE}</option>
-      {data.map((item) => (
-        <option value={item.Portfolio} key={item._id}>
-          {item.Portfolio}
-        </option>
-      ))}
-    </FormSelect>
+    <>
+      <FormSelect
+        id="Portfolio"
+        value={selected}
+        label="Select Portfolio"
+        onChange={handleDropdownChange}
+      >
+        <option value={null}>{DEFAULT_VALUE}</option>
+        {data.map((item) => (
+          <option value={item.Portfolio} key={item._id}>
+            {item.Portfolio}
+          </option>
+        ))}
+      </FormSelect>
+      {message && <Toaster type={toasterType} message={message} />}
+    </>
   );
 }
 

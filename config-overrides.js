@@ -1,15 +1,3 @@
-// const { injectBabelPlugin } = require("react-app-rewired");
-
-// const rootImportConfig = [
-//   "root-import",
-//   {
-//     rootPathPrefix: "~",
-//     rootPathSuffix: "src",
-//   },
-// ];
-
-// module.exports = (config) => injectBabelPlugin(rootImportConfig, config);
-
 module.exports = {
   // The Webpack config to use when compiling your react app for development or production.
   webpack: function (config, env) {

@@ -25,7 +25,7 @@ function Dashboard(props) {
   const [topGainers, setTopGainers] = useState([]);
   const [topLoosers, setTopLoosers] = useState([]);
   const [message, setMessage] = useState(null);
-  const [toasterType, setToasterType] = useState(null);
+  const [type, setType] = useState(null);
   const data = [
     {
       date: "23-05-2022",
@@ -58,61 +58,52 @@ function Dashboard(props) {
       "3IINFOLTD": 78.9,
     },
   ];
-  // const toppers = [
-  //   { id: 1, name: "TATAAIG", gain: 12 },
-  //   { id: 2, name: "AXISBANK", gain: 9 },
-  //   { id: 3, name: "ICICPROCU", gain: 8.7 },
-  // ];
-
-  // const loosers = [
-  //   { id: 1, name: "TATAAIG", gain: 12 },
-  //   { id: 2, name: "AXISBANK", gain: 9 },
-  //   { id: 3, name: "ICICPROCU", gain: 8.7 },
-  // ];
 
   useEffect(() => {
-    // axios
-    //   .get("/cash-reports/top?date=05%2F25%2F2022&type=Gainers&count=3")
-    //   .then((response) => {
-    //     const res = response.data;
-    //     if (res.status === 200) {
-    //       setTopGainers(res.data);
-    //     } else {
-    //       alert(res.message);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //     <Toaster type="error" message={err.message} />;
-    //   });
-    // axios
-    //   .get("/cash-reports/top?date=05%2F25%2F2022&type=Loosers&count=3")
-    //   .then((response) => {
-    //     const res = response.data;
-    //     if (res.status === 200) {
-    //       setTopLoosers(res.data);
-    //     } else {
-    //       alert(res.message);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err.message);
-    //   });
+    axios
+      .get("/cash-reports/top?date=05%2F25%2F2022&type=Gainers&count=3")
+      .then((response) => {
+        const res = response.data;
+        if (res.status === 200) {
+          setTopGainers(res.data);
+        } else {
+          setMessage(res.message);
+          setType("info");
+        }
+      })
+      .catch((err) => {
+        setMessage(err.message);
+        setType("error");
+      });
+    axios
+      .get("/cash-reports/top?date=05%2F25%2F2022&type=Loosers&count=3")
+      .then((response) => {
+        const res = response.data;
+        if (res.status === 200) {
+          setTopLoosers(res.data);
+        } else {
+          setMessage(res.message);
+          setType("info");
+        }
+      })
+      .catch((err) => {
+        setMessage(err.message);
+        setType("error");
+      });
     axios
       .get("/portfolio/top")
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
           setTopPortfolio(res.data);
-          setToasterType("success");
         } else {
           setMessage(res.message);
-          setToasterType("info");
+          setType("info");
         }
       })
       .catch((err) => {
         setMessage(err.message);
-        setToasterType("error");
+        setType("error");
       });
   }, []);
 
@@ -186,7 +177,7 @@ function Dashboard(props) {
           </WhiteBoard>
         </GridCell>
       </Grid>
-      {message && <Toaster type={toasterType} message={message} />}
+      {message && <Toaster type={type} message={message} />}
     </>
   );
 }

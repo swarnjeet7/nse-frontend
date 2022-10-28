@@ -7,6 +7,7 @@ import Title from "src/atoms/title";
 import MultiCheckbox from "src/components/multiCheckbox";
 import WhiteBoard from "src/components/whiteBoard";
 import { BadgeList } from "src/components/badge";
+import Toaster from "src/atoms/toaster";
 import AddDialog from "./addDialog";
 import axios from "axios";
 
@@ -15,6 +16,8 @@ function Manage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState({});
   const [addDialogStatus, setAddDialogStatus] = useState(false);
   const [portfolioScripts, setPortfolioScripts] = useState([]);
+  const [type, setType] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     getAllPortfolio();
@@ -26,13 +29,15 @@ function Manage() {
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-          setPortfolioScripts(res.data.Scripts);
+          setPortfolioScripts(res.data);
         } else {
-          alert(res.message);
+          setMessage(res.message);
+          setType("info");
         }
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -44,11 +49,13 @@ function Manage() {
         if (res.status === 200) {
           setProfileList(res.data);
         } else {
-          alert(res.message);
+          setMessage(res.message);
+          setType("info");
         }
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -103,6 +110,7 @@ function Manage() {
           onHide={() => setAddDialogStatus(false)}
         />
       )}
+      {message && <Toaster type={type} message={message} />}
     </>
   );
 }

@@ -30,6 +30,7 @@ export default function Toaster({ type, className, message, delay = 3000 }) {
   }, []);
 
   function handleHide() {
+    clearTimeout(timer);
     toasterRef.current.classList.remove("toaster--active");
   }
 

@@ -5,11 +5,14 @@ import Title from "src/atoms/title";
 import Button from "src/components/button/button";
 import Form from "src/components/form/form";
 import SearchBox from "src/components/searchBox";
+import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 export default function AddDialog({ onHide, portfolio }) {
   const [form] = useState(portfolio);
   const [searchValue, setSearchValue] = useState("");
+  const [type, setType] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleFormSubmit() {
     axios
@@ -18,36 +21,37 @@ export default function AddDialog({ onHide, portfolio }) {
       })
       .then((response) => {
         const res = response.data;
-        alert(res.message);
+        setMessage(res.message);
+        setType(res.status === 200 ? "success" : "info");
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
-  // function handleChange(value, id) {
-  //   setForm((prevForm) => ({ ...prevForm, [id]: value }));
-  // }
-
   return (
-    <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
-      <WhiteBoard>
-        <Title divider>Add Symbols</Title>
-        <Form onSubmit={handleFormSubmit} isVertical>
-          <Form.Body>
-            <Form.Input
-              id="Symbol"
-              value={searchValue}
-              onChange={(value) => setSearchValue(value)}
-              placeholder="Search symbol"
-            />
-            <SearchBox />
-          </Form.Body>
-          <Form.Actions>
-            <Button isInline>Submit</Button>
-          </Form.Actions>
-        </Form>
-      </WhiteBoard>
-    </Dialog>
+    <>
+      <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
+        <WhiteBoard>
+          <Title divider>Add Symbols</Title>
+          <Form onSubmit={handleFormSubmit} isVertical>
+            <Form.Body>
+              <Form.Input
+                id="Symbol"
+                value={searchValue}
+                onChange={(value) => setSearchValue(value)}
+                placeholder="Search symbol"
+              />
+              <SearchBox />
+            </Form.Body>
+            <Form.Actions>
+              <Button isInline>Submit</Button>
+            </Form.Actions>
+          </Form>
+        </WhiteBoard>
+      </Dialog>
+      {message && <Toaster type={type} message={message} />}
+    </>
   );
 }

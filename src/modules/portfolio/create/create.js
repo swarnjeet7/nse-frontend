@@ -8,6 +8,7 @@ import EditDialog from "./editDialog";
 import DeleteDialog from "./deleteDialog";
 import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
+import Toaster from "src/atoms/toaster";
 import { DEFAULT_FORM } from "../constant";
 
 function Create() {
@@ -16,6 +17,8 @@ function Create() {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [profileList, setProfileList] = useState([]);
+  const [type, setType] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     getAllPortfolio();
@@ -29,11 +32,13 @@ function Create() {
         if (res.status === 200) {
           setProfileList(res.data);
         } else {
-          alert(res.message);
+          setMessage(res.message);
+          setType("info");
         }
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -44,12 +49,14 @@ function Create() {
       })
       .then((response) => {
         const res = response.data;
-        alert(res.message);
         setForm(DEFAULT_FORM);
         getAllPortfolio();
+        setMessage(res.message);
+        setType(res.status === 200 ? "success" : "info");
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -155,6 +162,7 @@ function Create() {
           getData={getAllPortfolio}
         />
       )}
+      {message && <Toaster type={type} message={message} />}
     </>
   );
 }

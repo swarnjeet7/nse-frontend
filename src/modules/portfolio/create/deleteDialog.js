@@ -1,12 +1,16 @@
+import { useState } from "react";
 import Dialog, { dialogSizes } from "src/components/dialog";
 import WhiteBoard from "src/components/whiteBoard";
 import Title from "src/atoms/title";
 import Button from "src/components/button/button";
 import Form from "src/components/form/form";
+import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 export default function DeleteDialog({ onHide, portfolio, getData }) {
-  console.log("delete");
+  const [type, setType] = useState(null);
+  const [message, setMessage] = useState(null);
+
   function handleFormSubmit() {
     axios
       .delete("/portfolio", {
@@ -14,29 +18,34 @@ export default function DeleteDialog({ onHide, portfolio, getData }) {
       })
       .then((response) => {
         const res = response.data;
-        alert(res.message);
         onHide();
         getData();
+        setMessage(res.message);
+        setType(res.status === 200 ? "success" : "info");
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
         onHide();
       });
   }
 
   return (
-    <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
-      <WhiteBoard>
-        <Title divider>Update Portfolio</Title>
-        <Form onSubmit={handleFormSubmit} isVertical>
-          <Form.Body>
-            <p>Do you want to delete this profile? </p>
-          </Form.Body>
-          <Form.Actions>
-            <Button isInline>Delete Profile</Button>
-          </Form.Actions>
-        </Form>
-      </WhiteBoard>
-    </Dialog>
+    <>
+      <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
+        <WhiteBoard>
+          <Title divider>Update Portfolio</Title>
+          <Form onSubmit={handleFormSubmit} isVertical>
+            <Form.Body>
+              <p>Do you want to delete this profile? </p>
+            </Form.Body>
+            <Form.Actions>
+              <Button isInline>Delete Profile</Button>
+            </Form.Actions>
+          </Form>
+        </WhiteBoard>
+      </Dialog>
+      {message && <Toaster type={type} message={message} />}
+    </>
   );
 }

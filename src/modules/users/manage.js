@@ -8,6 +8,7 @@ import EditDialog from "./editDialog";
 import DeleteDialog from "./deleteDialog";
 import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
+import Toaster from "src/atoms/toaster";
 import { DEFAULT_FORM } from "./constant";
 
 function Manage() {
@@ -16,6 +17,8 @@ function Manage() {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [users, setUsers] = useState([]);
+  const [type, setType] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     getAllUsers();
@@ -29,11 +32,13 @@ function Manage() {
         if (res.status === 200) {
           setUsers(res.data);
         } else {
-          alert(res.message);
+          setMessage(res.message);
+          setType("info");
         }
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -44,12 +49,14 @@ function Manage() {
       })
       .then((response) => {
         const res = response.data;
-        alert(res.message);
         setForm(DEFAULT_FORM);
         getAllUsers();
+        setMessage(res.message);
+        setType(res.status === 200 ? "success" : "info");
       })
       .catch((error) => {
-        alert(error.message);
+        setMessage(error.message);
+        setType("error");
       });
   }
 
@@ -176,6 +183,7 @@ function Manage() {
           getUsers={getAllUsers}
         />
       )}
+      {message && <Toaster type={type} message={message} />}
     </>
   );
 }
