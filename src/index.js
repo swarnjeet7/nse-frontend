@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./index.scss";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
+import reportWebVitals from "./reportWebVitals";
 
 let API_BASE_URL = "https://nse-stock-exchange.herokuapp.com";
 if (process.env.NODE_ENV === "development") {
@@ -35,8 +35,8 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
