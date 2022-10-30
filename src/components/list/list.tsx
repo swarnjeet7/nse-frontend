@@ -2,9 +2,22 @@ import classNames from "classnames";
 import "./list.scss";
 
 interface Item {
-  id: string;
-  name: string;
-  gain: string;
+  Close: number;
+  High: number;
+  ISIN: string;
+  Last: number;
+  Low: number;
+  Open: number;
+  PrevClose: number;
+  Profit: number;
+  Series: string;
+  Symbol: string;
+  Timestamp: string;
+  TotalTradeQuantity: number;
+  TotalTradeValue: number;
+  TotalTrades: number;
+  __v: number;
+  _id: string;
 }
 
 interface ListProps {
@@ -16,17 +29,17 @@ interface ListProps {
 export default function List({ data, isSuccess, isLoosers }: ListProps) {
   return (
     <ul className="list">
-      {data.map((item: Item, i: number) => {
-        const id = item.id || `list-${i}`;
+      {data.map((item: Item) => {
         const classes = classNames("", "", {
           "text-success": isSuccess,
           "text-danger": isLoosers,
         });
+
         return (
-          <li key={id} className="list-item">
-            <span>{item.name}</span>
+          <li key={item._id} className="list-item">
+            <span>{item.Symbol}</span>
             <span className={classes}>
-              <strong>{item.gain}%</strong>
+              <strong>{Number(item.Profit).toFixed(2)}%</strong>
             </span>
           </li>
         );

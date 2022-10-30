@@ -16,11 +16,10 @@ import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 function Dashboard() {
+  const strokesColorArr = ["#f5e5bf", "#998a66", "#d12a35"];
   const [topPortfolio, setTopPortfolio] = useState({
-    Portfoilo: "Swarnjeet",
-    FullName: "Swarnjeet Singh",
-    Scripts: ["20MICRONS", "3MINDIA", "3IINFOLTD"],
-    Address: "F80A, GF, Jeewan Park, Uttam Nagar, New Delhi - 110059",
+    Portfolio: "",
+    Scripts: [],
   });
   const [topGainers, setTopGainers] = useState([]);
   const [topLoosers, setTopLoosers] = useState([]);
@@ -93,11 +92,11 @@ function Dashboard() {
         setType("error");
       });
     axios
-      .get("/portfolio/top")
+      .get("/portfolioScript/top")
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-          setTopPortfolio(res.data);
+          setTopPortfolio(res.data?.[0]);
         } else {
           setMessage(res.message);
           setType("info");
@@ -115,7 +114,7 @@ function Dashboard() {
         <GridCell col="8">
           <WhiteBoard>
             <Title divider>
-              Top portfolio scripts with graph :- {topPortfolio.Portfoilo}
+              Top portfolio scripts with graph :- {topPortfolio.Portfolio}
             </Title>
             <LineChart
               className="mt-4 m-auto"
@@ -128,29 +127,26 @@ function Dashboard() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line
-                type="monotone"
-                dataKey={topPortfolio.Scripts[0]}
-                stroke="#f5e5bf"
-                activeDot={{ r: 8 }}
-              />
-              <Line
-                type="monotone"
-                dataKey={topPortfolio.Scripts[1]}
-                stroke="#998a66"
-                activeDot={{ r: 8 }}
-              />
-              <Line
-                type="monotone"
-                dataKey={topPortfolio.Scripts[2]}
-                stroke="#d12a35"
-                activeDot={{ r: 8 }}
-              />
+              {topPortfolio.Scripts.map((symbol: string, i: number) => {
+                const strokeColor = strokesColorArr[i];
+                return (
+                  <Line
+                    key={symbol}
+                    type="monotone"
+                    dataKey={symbol}
+                    stroke={strokeColor}
+                    activeDot={{ r: 8 }}
+                  />
+                );
+              })}
             </LineChart>
           </WhiteBoard>
         </GridCell>
-        <GridCell col="4">
-          <WhiteBoard>
+        <GridCell
+          col="4"
+          className="flex flex-direction-column justify-content-between"
+        >
+          <WhiteBoard isSideboard>
             <Title divider className="justify-content-between">
               <span>Top 3 Gainers</span>
               <svg
@@ -164,7 +160,7 @@ function Dashboard() {
             <List data={topGainers} isSuccess></List>
           </WhiteBoard>
 
-          <WhiteBoard>
+          <WhiteBoard isSideboard>
             <Title divider className="justify-content-between">
               <span>Top 3 Loosers</span>
               <svg

@@ -178,7 +178,7 @@ function Bhavcopy() {
                     <div>{Timestamp}</div>
                     <div>{TotalTrades}</div>
                     <div>{ISIN}</div>
-                    <div>{Number(Profit).toFixed(2) + "%"}</div>
+                    <div>{Number(Profit).toFixed(2)}%</div>
                   </Table.BodyItem>
                 );
               })}

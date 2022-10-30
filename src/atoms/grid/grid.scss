@@ -43,6 +43,13 @@
     flex: 0 0 calc(100 / 12 * 4% - 20px);
   }
 }
+.flex {
+  display: flex;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
 
 .justify-content-between {
   justify-content: space-between;
