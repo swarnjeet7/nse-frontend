@@ -1,6 +1,8 @@
 .search {
   &-box {
-    max-height: 400px;
+    padding: 10px 0 0;
+    height: calc(100vh - 350px);
+    max-height: calc(100vh - 350px);
     overflow: auto;
   }
   &-items {

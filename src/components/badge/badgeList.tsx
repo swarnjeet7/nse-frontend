@@ -3,13 +3,16 @@ import "./badge.scss";
 
 interface BadgeListProps {
   list: Array<string>;
+  isClickAble: boolean;
 }
 
-export default function BadgeList({ list }: BadgeListProps) {
+export default function BadgeList({ list, isClickAble }: BadgeListProps) {
   return (
     <ul className="badge-list">
       {list.map((badge) => (
-        <Badge key={badge}>{badge}</Badge>
+        <Badge key={badge} isClickAble={isClickAble}>
+          {badge}
+        </Badge>
       ))}
     </ul>
   );

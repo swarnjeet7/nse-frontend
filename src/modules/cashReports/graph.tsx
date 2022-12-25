@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import Toaster from "src/atoms/toaster";
 import axios from "axios";
+import { Row } from "./types";
 
 function Graph() {
   const [form, setForm] = useState({
@@ -45,7 +46,7 @@ function Graph() {
       .then((response) => {
         const res = response.data;
         if (res.status === 200) {
-          const filterData = res.data.filter((row: any, i: number) => {
+          const filterData = res.data.filter((row: Row, i: number) => {
             if (
               i > 0 &&
               new Date(res.data[i - 1].Timestamp) < new Date(row.Timestamp)
@@ -55,7 +56,7 @@ function Graph() {
             return null;
           });
 
-          const data = filterData.map((row: any) => {
+          const data = filterData.map((row: Row) => {
             return {
               date: moment(new Date(row.Timestamp)).format("DD-MM-YYYY"),
               [form.Symbol]: row.High,

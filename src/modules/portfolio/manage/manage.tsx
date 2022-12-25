@@ -4,7 +4,7 @@ import { Grid, GridCell } from "src/atoms/grid";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import Title from "src/atoms/title";
-import MultiCheckbox from "src/components/multiCheckbox";
+import SingleCheckbox from "src/components/singleCheckbox";
 import WhiteBoard from "src/components/whiteBoard";
 import { BadgeList } from "src/components/badge";
 import Toaster from "src/atoms/toaster";
@@ -77,9 +77,8 @@ function Manage() {
             <Title divider>Created Portfolio Map</Title>
             <Form isVertical onSubmit={_.noop}>
               <Form.Body>
-                <MultiCheckbox
+                <SingleCheckbox
                   list={profileList}
-                  label="Portfolio"
                   value={selectedPortfolio.Portfolio}
                   onSelect={handleClick}
                 />
@@ -94,7 +93,7 @@ function Manage() {
               <span>Portfolio Script</span>
               {selectedPortfolio.Portfolio && (
                 <Button onClick={() => setAddDialogStatus(true)} isInline>
-                  {_.isEmpty(selectedPortfolio.Scripts) ? "Add" : "Add More"}
+                  {_.isEmpty(portfolioScripts) ? "Add" : "Edit"}
                 </Button>
               )}
             </Title>
@@ -104,7 +103,7 @@ function Manage() {
             ) : _.isEmpty(portfolioScripts) ? (
               "There is no script added yet, please add some"
             ) : (
-              <BadgeList list={portfolioScripts} />
+              <BadgeList list={portfolioScripts} isClickAble={false} />
             )}
           </WhiteBoard>
         </GridCell>

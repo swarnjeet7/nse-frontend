@@ -1,17 +1,17 @@
 import { useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
 import "./toaster.scss";
 
-export interface ToasterTypes {
-  type: "error" | "success" | "warning" | "info";
-}
+export type ToasterTypes = "error" | "success" | "warning" | "info";
 
-interface ToasterProps extends ToasterTypes {
+type ToasterProps = {
+  type: ToasterTypes;
   message: string;
   onHide: (value: string) => void;
   className?: string;
   delay?: number;
-}
+};
 
 export default function Toaster({
   type,
@@ -67,15 +67,21 @@ export default function Toaster({
     }, 100);
   }
 
-  return (
-    <div className={classes} ref={toasterRef}>
-      <div className="toaster__body">
-        <span className="toaster__icon"></span>
-        <span>{message}</span>
+  function getHtml() {
+    return (
+      <div className={classes} ref={toasterRef}>
+        <div className="toaster__body">
+          <span className="toaster__icon"></span>
+          <span>{message}</span>
+        </div>
+        <div className="toaster__action" onClick={handleHide}>
+          <button className="toaster__close">✕</button>
+        </div>
       </div>
-      <div className="toaster__action" onClick={handleHide}>
-        <button className="toaster__close">✕</button>
-      </div>
-    </div>
-  );
+    );
+  }
+
+  const portal = document.getElementById("toaster");
+
+  return <>{portal ? ReactDOM.createPortal(getHtml(), portal) : null}</>;
 }

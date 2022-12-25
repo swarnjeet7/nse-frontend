@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import Title from "src/atoms/title";
-import MultiCheckbox from "src/components/multiCheckbox";
+import SingleCheckbox from "src/components/singleCheckbox";
 import WhiteBoard from "src/components/whiteBoard";
 import EditDialog from "./editDialog";
 import DeleteDialog from "./deleteDialog";
 import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
 import Toaster from "src/atoms/toaster";
+import { ToasterTypes } from "src/atoms/toaster/toaster";
+
+import { ItemType } from "src/components/formCheckbox/formCheckbox";
 
 function Create() {
   const [selectedPortfolio, setSelectedPortfolio] = useState({
@@ -20,14 +23,11 @@ function Create() {
     FullName: "",
     Address: "",
   };
-
   const [form, setForm] = useState(DEFAULT_FORM);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [profileList, setProfileList] = useState([]);
-  const [type, setType] = useState<"error" | "success" | "warning" | "info">(
-    "info"
-  );
+  const [profileList, setProfileList] = useState<ItemType[]>([]);
+  const [type, setType] = useState<ToasterTypes>("info");
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -136,9 +136,8 @@ function Create() {
             <Title divider>Created Portfolio Map</Title>
             <Form isVertical onSubmit={_.noop}>
               <Form.Body>
-                <MultiCheckbox
+                <SingleCheckbox
                   list={profileList}
-                  label="Portfolio"
                   value={selectedPortfolio?.Portfolio}
                   onSelect={handleClick}
                 />
@@ -166,16 +165,22 @@ function Create() {
       </Grid>
       {showEditDialog && (
         <EditDialog
+          setType={setType}
+          setMessage={setMessage}
           onHide={handleCloseEditDialog}
           portfolio={selectedPortfolio}
           getData={getAllPortfolio}
+          setSelectedPortfolio={setSelectedPortfolio}
         />
       )}
       {showDeleteDialog && (
         <DeleteDialog
+          setType={setType}
+          setMessage={setMessage}
           onHide={handleCloseDeleteDialog}
           portfolio={selectedPortfolio}
           getData={getAllPortfolio}
+          setSelectedPortfolio={setSelectedPortfolio}
         />
       )}
       {message && <Toaster type={type} message={message} onHide={setMessage} />}

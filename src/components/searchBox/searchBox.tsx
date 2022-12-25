@@ -3,15 +3,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Toaster from "src/atoms/toaster";
 import "./searchBox.scss";
+import { ToasterTypes } from "src/atoms/toaster/toaster";
 
-export default function SearchBox() {
+export default function SearchBox({
+  searchValue,
+}: {
+  searchValue: string | Date;
+}) {
   const [originSymbols, setOriginSymbols] = useState([]);
   const [symbolList, setSymbolList] = useState(originSymbols);
-  const [symbols, setSymbols] = useState([]);
-  const [type, setType] = useState<"error" | "success" | "warning" | "info">(
-    "info"
-  );
-  const [message, setMessage] = useState<string>("");
+  const [symbols, setSymbols] = useState("");
+  const [type, setType] = useState<ToasterTypes>("info");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -32,13 +35,14 @@ export default function SearchBox() {
       });
   }, []);
 
-  function handleClick(symbol: any) {
-    setSymbols((prevState: any) => {
-      const isExisted = prevState.some((obj: any) => obj.name === symbol.name);
-      if (isExisted) {
-        return prevState.filter((obj: any) => obj.name !== symbol.name);
+  function handleClick(symbol: string) {
+    setSymbols((prevSymbols) => {
+      const symbolArr = prevSymbols.split(",");
+      if (symbolArr.includes(symbol)) {
+        const arr = symbolArr.filter((symbolName) => symbolName !== symbol);
+        return arr.join(",");
       }
-      return [...prevState, symbol];
+      return prevSymbols.concat(`,${symbol}`);
     });
   }
 
@@ -46,10 +50,8 @@ export default function SearchBox() {
     <>
       <div className="search-box">
         <MultiCheckbox
-          Multiple
           list={symbolList}
-          label="name"
-          value={symbols}
+          values={symbols}
           onSelect={handleClick}
         />
       </div>

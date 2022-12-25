@@ -1,28 +1,42 @@
 import classNames from "classnames";
 
-interface FormCheckboxProps {
-  label: string;
-  className?: string;
+export type PortfolioType = {
+  _id: string | number;
+  Portfolio: string;
+  FullName: string;
+  Address: string;
+  UpdatedAt: string;
+  CreatedAt: string;
+  __v: number | string;
+};
+
+export type SymbolType = {
+  name: string;
+  _id: string | number;
+  __v: number | string;
+};
+
+export type ItemType = any;
+
+type FormCheckboxProps = {
+  item: ItemType;
   isChecked: boolean;
-  onChange: (value: boolean | string) => void;
-  item?: boolean | string | null;
-}
+  onSelect: (value: ItemType) => void;
+  className?: string;
+};
 
 export default function FormCheckbox({
-  label,
   className,
+  onSelect,
   isChecked,
-  onChange,
-  item = null,
+  item,
 }: FormCheckboxProps) {
   const classes = classNames("form-checkbox", className, {
     "form-checkbox--checked": isChecked,
   });
+
   function handleClick() {
-    if (item) {
-      return onChange(item);
-    }
-    onChange(!isChecked);
+    onSelect(item);
   }
 
   return (
@@ -33,6 +47,7 @@ export default function FormCheckbox({
           defaultChecked={isChecked}
           onChange={handleClick}
         />
+
         <span className="checkbox">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +57,10 @@ export default function FormCheckbox({
             <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
           </svg>
         </span>
-        <span className="text-capitalize">{label}</span>
+
+        <span className="text-capitalize">
+          {item?.Portfolio || item?.name || item}
+        </span>
       </label>
     </div>
   );

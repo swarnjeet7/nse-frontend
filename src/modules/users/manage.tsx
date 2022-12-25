@@ -9,9 +9,10 @@ import DeleteDialog from "./deleteDialog";
 import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
 import Toaster from "src/atoms/toaster";
+import { UserType } from "./types";
 
-function Manage() {
-  const DEFAULT_FORM = {
+export default function Manage() {
+  const DEFAULT_FORM: UserType = {
     UserName: "",
     UserType: "Executive",
     FullName: "",
@@ -19,12 +20,10 @@ function Manage() {
     ConfirmPassword: "",
   };
 
-  const [selectedUser, setSelectedUser] = useState<any>({
-    UserName: "",
-  });
-  const [form, setForm] = useState(DEFAULT_FORM);
-  const [showEditDialog, setShowEditDialog] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserType>({} as UserType);
+  const [form, setForm] = useState<UserType>(DEFAULT_FORM);
+  const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
   const [users, setUsers] = useState([]);
   const [type, setType] = useState<"error" | "success" | "warning" | "info">(
     "info"
@@ -87,7 +86,7 @@ function Manage() {
     setShowDeleteDialog(false);
   }
 
-  function handleClick(value: string | boolean) {
+  function handleUserSelect(value: any) {
     setSelectedUser(value);
   }
 
@@ -158,18 +157,18 @@ function Manage() {
             <Title divider>Managed Users Map</Title>
             <Form isVertical>
               <Form.Body>
-                <MultiCheckbox
+                {/* <MultiCheckbox
                   list={users}
                   label="UserName"
                   value={selectedUser.UserName}
-                  onSelect={handleClick}
-                />
+                  onSelect={handleUserSelect}
+                /> */}
               </Form.Body>
               <Form.Actions>
                 <Button
                   onClick={() => setShowEditDialog(true)}
                   isInline
-                  isDisabled={!selectedUser.UserName}
+                  isDisabled={!selectedUser?.UserName}
                 >
                   Edit User
                 </Button>
@@ -177,7 +176,7 @@ function Manage() {
                 <Button
                   onClick={() => setShowDeleteDialog(true)}
                   isInline
-                  isDisabled={!selectedUser.UserName}
+                  isDisabled={!selectedUser?.UserName}
                 >
                   Delete User
                 </Button>
@@ -204,5 +203,3 @@ function Manage() {
     </>
   );
 }
-
-export default Manage;

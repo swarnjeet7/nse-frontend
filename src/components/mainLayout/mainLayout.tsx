@@ -5,7 +5,7 @@ import Header from "src/components/header";
 import Breadcrumb from "src/components/breadcrumb";
 import { Container } from "src/atoms/grid";
 
-function MainLayout(props: any) {
+function MainLayout() {
   const pathname = window.location.pathname;
   const [urlParams, setUrlParams] = useState(
     _.remove(pathname.split("/"), function (param) {
@@ -45,7 +45,7 @@ function MainLayout(props: any) {
         </Breadcrumb>
 
         <main>
-          <Outlet {...props} />
+          <Outlet />
         </main>
       </Container>
     </>

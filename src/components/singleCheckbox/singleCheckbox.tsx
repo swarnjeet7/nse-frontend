@@ -1,27 +1,26 @@
+import _ from "lodash";
 import FormCheckbox from "../formCheckbox";
 import { ItemType } from "src/components/formCheckbox/formCheckbox";
 
-type MultiCheckboxProps = {
+type SingleCheckboxProps = {
   list: ItemType[];
-  values: string;
+  value: string;
   onSelect: (value: ItemType) => void;
 };
 
-export default function MultiCheckbox({
+export default function SingleCheckbox({
   list,
-  values,
+  value,
   onSelect,
-}: MultiCheckboxProps) {
+}: SingleCheckboxProps) {
   return (
     <div>
-      {list.map((item: ItemType) => {
-        const arr = values.split(",");
-        const isChecked = arr.includes(item.name);
+      {list.map((item) => {
         return (
           <FormCheckbox
-            isChecked={isChecked}
             key={item._id}
-            item={item.name}
+            isChecked={value === item.Portfolio}
+            item={item}
             onSelect={onSelect}
           />
         );

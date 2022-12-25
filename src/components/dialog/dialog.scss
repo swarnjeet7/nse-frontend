@@ -5,18 +5,17 @@
   left: 0;
   right: 0;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: auto;
+  padding: 50px;
 
   &-overlay {
     background: rgba(0, 0, 0, 0.5);
   }
 
   &-body {
-    position: relative;
-    margin: 25px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &-close {
