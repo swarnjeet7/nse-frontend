@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Form from "src/components/form/form";
 import Button from "src/components/button/button";
 import Title from "src/atoms/title";
-import MultiCheckbox from "src/components/multiCheckbox";
+// import MultiCheckbox from "src/components/multiCheckbox";
 import WhiteBoard from "src/components/whiteBoard";
 import EditDialog from "./editDialog";
 import DeleteDialog from "./deleteDialog";
@@ -10,6 +10,7 @@ import { Grid, GridCell } from "src/atoms/grid";
 import axios from "axios";
 import Toaster from "src/atoms/toaster";
 import { UserType } from "./types";
+import SingleCheckbox from "src/components/singleCheckbox";
 
 export default function Manage() {
   const DEFAULT_FORM: UserType = {
@@ -20,7 +21,9 @@ export default function Manage() {
     ConfirmPassword: "",
   };
 
-  const [selectedUser, setSelectedUser] = useState<UserType>({} as UserType);
+  const [selectedUser, setSelectedUser] = useState<UserType>({
+    ...DEFAULT_FORM,
+  });
   const [form, setForm] = useState<UserType>(DEFAULT_FORM);
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
@@ -157,12 +160,11 @@ export default function Manage() {
             <Title divider>Managed Users Map</Title>
             <Form isVertical>
               <Form.Body>
-                {/* <MultiCheckbox
+                <SingleCheckbox
                   list={users}
-                  label="UserName"
-                  value={selectedUser.UserName}
+                  value={selectedUser?.UserName}
                   onSelect={handleUserSelect}
-                /> */}
+                />
               </Form.Body>
               <Form.Actions>
                 <Button

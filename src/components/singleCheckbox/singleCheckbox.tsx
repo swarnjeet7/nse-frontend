@@ -19,7 +19,7 @@ export default function SingleCheckbox({
         return (
           <FormCheckbox
             key={item._id}
-            isChecked={value === item.Portfolio}
+            isChecked={value === item.Portfolio || value === item.UserName}
             item={item}
             onSelect={onSelect}
           />

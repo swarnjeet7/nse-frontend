@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useState } from "react";
 import Dialog, { dialogSizes } from "src/components/dialog";
 import WhiteBoard from "src/components/whiteBoard";
@@ -18,7 +19,11 @@ export default function EditDialog({
   user,
   getUsers,
 }: EditDialogProps) {
-  const [form, setForm] = useState(user);
+  const [form, setForm] = useState({
+    ...user,
+    Password: "",
+    ConfirmPassword: "",
+  });
   const [type, setType] = useState<"error" | "success" | "warning" | "info">(
     "info"
   );

@@ -59,7 +59,7 @@ export default function FormCheckbox({
         </span>
 
         <span className="text-capitalize">
-          {item?.Portfolio || item?.name || item}
+          {item?.Portfolio || item?.UserName || item}
         </span>
       </label>
     </div>
