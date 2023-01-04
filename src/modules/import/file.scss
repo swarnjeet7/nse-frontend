@@ -1,0 +1,15 @@
+.file-icon {
+  border: 1px solid var(--background-color-header);
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+}
