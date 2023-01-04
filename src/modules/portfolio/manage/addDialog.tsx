@@ -9,12 +9,18 @@ import Toaster from "src/atoms/toaster";
 import axios from "axios";
 
 interface AddDialogProps {
+  scripts: any;
   onHide: () => void;
   portfolio: any;
 }
 
-export default function AddDialog({ onHide, portfolio }: AddDialogProps) {
-  const [form] = useState(portfolio);
+export default function AddDialog({
+  onHide,
+  portfolio,
+  scripts,
+}: AddDialogProps) {
+  // const [form] = useState(portfolio);
+  const [scriptsForm, setScriptsForm] = useState(scripts);
   const [searchValue, setSearchValue] = useState<string | Date>("");
   const [type, setType] = useState<"error" | "success" | "warning" | "info">(
     "info"
@@ -26,8 +32,9 @@ export default function AddDialog({ onHide, portfolio }: AddDialogProps) {
     setLoading(true);
 
     axios
-      .patch("/portfolio", {
-        ...form,
+      .patch("/portfolioScript", {
+        Portfolio: portfolio,
+        Scripts: scriptsForm,
       })
       .then((response) => {
         const res = response.data;
@@ -41,51 +48,35 @@ export default function AddDialog({ onHide, portfolio }: AddDialogProps) {
       .finally(() => setLoading(false));
   }
 
+  function handleRemoveScript(selectedScript: string) {
+    setScriptsForm((prevScripts: string[]) =>
+      prevScripts.filter((script: string) => script !== selectedScript)
+    );
+  }
+
+  function handleAddScript(selectedScript: string) {
+    setScriptsForm(scriptsForm.concat(selectedScript));
+  }
+
   return (
     <>
       <Dialog size={dialogSizes.LARGE} onHide={onHide} showUnderlay>
         <WhiteBoard>
           <Title divider>Add Symbols</Title>
-          <ul className="badge-list">
-            <li className="badge-item">
-              20MICRONS
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                className="close"
-              >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-              </svg>
-            </li>
-            <li className="badge-item">
-              3IINFOLTD
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                className="close"
-              >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-              </svg>
-            </li>
-            <li className="badge-item">
-              3MINDIA
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                className="close"
-              >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-              </svg>
-            </li>
+          <ul className="badge-list badge-list--medium mb-20">
+            {scriptsForm.map((script: string) => {
+              return (
+                <li className="badge-item" key={script}>
+                  {script}
+                  <button
+                    className="btn-close"
+                    onClick={() => handleRemoveScript(script)}
+                  >
+                    ✕
+                  </button>
+                </li>
+              );
+            })}
           </ul>
           <Form onSubmit={handleFormSubmit} isVertical>
             <Form.Body>
@@ -96,7 +87,12 @@ export default function AddDialog({ onHide, portfolio }: AddDialogProps) {
                 onChange={(value: string | Date) => setSearchValue(value)}
                 placeholder="Search symbol"
               />
-              <SearchBox searchValue={searchValue} />
+              <SearchBox
+                selectedScripts={scriptsForm}
+                searchValue={searchValue}
+                onAddScript={handleAddScript}
+                onRemoveScript={handleRemoveScript}
+              />
             </Form.Body>
             <Form.Actions>
               <Button isInline isWaiting={loading}>

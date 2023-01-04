@@ -1,3 +1,4 @@
+import _ from "lodash";
 import MultiCheckbox from "../multiCheckbox";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -7,14 +8,33 @@ import { ToasterTypes } from "src/atoms/toaster/toaster";
 
 export default function SearchBox({
   searchValue,
+  onAddScript,
+  onRemoveScript,
+  selectedScripts,
 }: {
   searchValue: string | Date;
+  onAddScript: (value: string) => void;
+  onRemoveScript: (value: string) => void;
+  selectedScripts: string[];
 }) {
   const [originSymbols, setOriginSymbols] = useState([]);
   const [symbolList, setSymbolList] = useState(originSymbols);
-  const [symbols, setSymbols] = useState("");
+  const [symbols, setSymbols] = useState(selectedScripts.join(","));
   const [type, setType] = useState<ToasterTypes>("info");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setSymbols(selectedScripts.join(","));
+  }, [selectedScripts]);
+
+  useEffect(() => {
+    if (!searchValue) return setSymbolList(originSymbols);
+    const newSybmolList = originSymbols.filter((symbolObj: any) => {
+      const symbol = _.toLower(symbolObj.name);
+      return symbol.includes(String(searchValue));
+    });
+    setSymbolList(newSybmolList);
+  }, [searchValue]);
 
   useEffect(() => {
     axios
@@ -40,8 +60,10 @@ export default function SearchBox({
       const symbolArr = prevSymbols.split(",");
       if (symbolArr.includes(symbol)) {
         const arr = symbolArr.filter((symbolName) => symbolName !== symbol);
+        onRemoveScript(symbol);
         return arr.join(",");
       }
+      onAddScript(symbol);
       return prevSymbols.concat(`,${symbol}`);
     });
   }

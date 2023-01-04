@@ -110,7 +110,8 @@ function Manage() {
       </Grid>
       {addDialogStatus && (
         <AddDialog
-          portfolio={selectedPortfolio}
+          scripts={portfolioScripts}
+          portfolio={selectedPortfolio.Portfolio}
           onHide={() => setAddDialogStatus(false)}
         />
       )}

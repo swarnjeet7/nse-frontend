@@ -3,6 +3,11 @@
     padding: 0;
     margin: 0;
     list-style: none;
+
+    &--medium {
+      max-height: 105px;
+      overflow: auto;
+    }
   }
 
   &-item {
@@ -14,14 +19,16 @@
     border-radius: var(--border-radius-small);
     background-color: #fee9e6;
     position: relative;
-
-    & + .badge-item {
-      margin-left: 15px;
-    }
+    margin-bottom: 5px;
+    margin-right: 5px;
 
     .close {
       display: inline-block;
       cursor: pointer;
     }
   }
+}
+
+.mb-20 {
+  margin-bottom: 20px;
 }

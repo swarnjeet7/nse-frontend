@@ -93,7 +93,10 @@ function FoFile() {
               <div className="file-icon">
                 <CsvFile />
                 {file?.name}
-                <button className="btn-close" onClick={handleRemoveFile}>
+                <button
+                  className="btn-close btn-close--top-right"
+                  onClick={handleRemoveFile}
+                >
                   ✕
                 </button>
               </div>
